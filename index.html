@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diablo D&D Character Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">     
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-5xl mx-auto diablo-border p-4">
+        <!-- Header -->
+        <div class="flex justify-between items-start gap-4 mb-4">
+            <div class="flex gap-2 flex-wrap">
+				<button id="new-char-button" class="diablo-button">New</button>
+				<button id="load-modal-button" class="diablo-button">Load</button>
+				<button id="save-button" class="diablo-button">Save</button>
+				<button id="item-stash-button" class="diablo-button">Items</button>
+			</div>
+            <div class="text-center flex-grow"><input id="character-name-input" type="text" placeholder="CHARACTER NAME" class="diablo-input bg-transparent border-0 text-center text-4xl text-[#c89b3c] p-0 w-full"></div>
+            <div class="text-center">
+				<label class="text-sm">CLASS</label>
+				<select id="class-selector" class="diablo-button w-full !w-auto min-w-[120px] px-2">
+					<option value="amazon">Amazon</option>
+					<option value="assassin">Assassin</option>
+					<option value="barbarian">Barbarian</option>
+					<option value="druid">Druid</option>
+					<option value="necromancer">Necromancer</option>
+					<option value="paladin">Paladin</option>
+					<option value="sorceress">Sorceress</option>
+				</select>
+			</div>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="flex border-b-2 border-b-gray-600 mb-4">
+			<button id="tab-stats" class="tab-button active">Stats</button>
+			<button id="tab-inventory" class="tab-button">Inventory</button>
+			<button id="tab-skills" class="tab-button">Skills</button>
+			<button id="tab-shop" class="tab-button">Shop</button>
+		</div>
+
+        <!-- Stats Page -->
+        <div id="stats-page" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+			<!-- Left Column -->
+            <div class="space-y-4">
+				<!-- Level Group -->
+                <div class="grid grid-cols-4 gap-4 text-center">
+                    <div class="w-2/3 mx-auto">
+						<label>LEVEL</label>
+						<input id="level" type="number" class="diablo-input text-2xl" value="1"></div>
+                    <div style="grid-column: span 2">
+						<label>EXPERIENCE</label>
+						<div class="diablo-input text-1xl flex items-center justify-center p-0 h-[42px]">
+							<input id="experience-current" type="number" class="bg-transparent border-0 text-right w-full focus:outline-none px-1" value="0">
+							<span class="text-gray-500">/</span>
+							<span id="experience-required" class="text-left w-full text-gray-400 px-1">1000</span>
+							<div class="flex flex-col h-full">
+								<button id="exp-plus-button" class="plus-minus-button h-1/2 text-xs">+</button>
+								<button id="exp-minus-button" class="plus-minus-button h-1/2 text-xs">-</button></div>
+							<input id="exp-mod-input" type="text" inputmode="numeric" pattern="[0-9]*" class="diablo-input w-16 text-lg h-full" value="100"></div></div>
+					<div class="w-2/3 mx-auto">
+						<label>PTS</label>
+						<input id='stat-pts' type="number" class="diablo-input text-2xl flex items-center justify-center p-0 h-[42px]" value="0"></div></div>
+				<!-- Stats Group -->
+                <div class="grid grid-cols-6 gap-2 text-center">
+                    <div>
+						<label>STR</label>
+						<div class="stat-box">
+							<input id="str" type="number" class="diablo-input text-xl" value="14">
+							<div id="str-mod" class="modifier-box mt-1">+2</div></div></div>
+                    <div>
+						<label>DEX</label>
+						<div class="stat-box">
+							<input id="dex" type="number" class="diablo-input text-xl" value="14">
+							<div id="dex-mod" class="modifier-box mt-1">+2</div></div></div>
+                    <div>
+						<label>CON</label>
+						<div class="stat-box">
+							<input id="con" type="number" class="diablo-input text-xl" value="16">
+							<div id="con-mod" class="modifier-box mt-1">+3</div></div></div>
+                    <div>
+						<label>INT</label>
+						<div class="stat-box">
+							<input id="int" type="number" class="diablo-input text-xl" value="10">
+							<div id="int-mod" class="modifier-box mt-1">0</div></div></div>
+                    <div>
+						<label>WIS</label>
+						<div class="stat-box">
+							<input id="wis" type="number" class="diablo-input text-xl" value="14">
+							<div id="wis-mod" class="modifier-box mt-1">+2</div></div></div>
+                    <div>
+						<label>CHA</label>
+						<div class="stat-box">
+							<input id="cha" type="number" class="diablo-input text-xl" value="16">
+							<div id="cha-mod" class="modifier-box mt-1">+3</div></div></div></div>
+				<!-- Resistance Group -->
+                <div>
+					<h2 class="text-center text-lg mb-2">RESISTANCES</h2>
+					<div class="grid grid-cols-4 gap-2 text-center items-center">
+						<div>🔥 <input type="number" class="diablo-input" value="0"></div>
+						<div>❄️ <input type="number" class="diablo-input" value="0"></div>
+						<div>⚡️ <input type="number" class="diablo-input" value="0"></div>
+						<div>☠️ <input type="number" class="diablo-input" value="0"></div></div></div>
+				<!-- Conditions Group -->
+				<div><h2 class="text-center text-lg mb-2">CONDITIONS</h2>
+					<span id="conditions" class="diablo-input !bg-transparent border-0 block">More to come....</span></div></div>
+			<!-- Right Column -->
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                        <label>ARMOR CLASS</label>
+                        <div id="ac-display" class="diablo-input text-2xl h-[42px] flex items-center justify-center" title="Base AC">10</div>
+                        <input id="ac-base" type="number" class="hidden" value="10"></div>
+                    <div>
+						<label>MOVE RATE</label>
+						<select id="move-rate" class="diablo-input diablo-select text-2xl h-[42px]"></select></div></div>
+				<!-- Weapons Group -->
+				<div class="grid justify-center"><button id="swap-weapons" class="diablo-button text-sm" onclick="swapWeapons()">SWAP WEAPONS</button></div>
+                <div class="grid grid-cols-2 gap-4">
+					<!-- Primary Weapon -->
+                    <div class="space-y-2 text-center diablo-border p-2">
+                        <label>PRIMARY WEAPON</label>
+						<span id="weapon1-name" class="diablo-input !bg-transparent border-0 block"></span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+								<label class="text-sm">DAMAGE</label>
+								<span id="weapon1-damage" class="diablo-input !bg-transparent border-0 block h-[34px]"></span></div>
+                            <div>
+								<label class="text-sm">SPEED</label>
+								<span id="weapon1-speed" class="diablo-input !bg-transparent border-0 block h-[34px]"></span></div></div>
+						<label>PROPERTIES</label>
+						<span id="weapon1-properties" class="diablo-input !bg-transparent border-0 block"></span></div>
+					<!-- Secondary Weapon/ Shield -->
+                    <div class="space-y-2 text-center diablo-border p-2">
+                        <label>SECONDARY WEAPON</label>
+						<span id="weapon2-name" class="diablo-input !bg-transparent border-0 block"></span>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+								<label id="weapon2-type" class="text-sm">DAMAGE</label>
+								<span id="weapon2-damage" class="diablo-input !bg-transparent border-0 block h-[34px]"></span></div>
+                            <div>
+								<label id="weapon2-speed-lbl" class="text-sm">SPEED</label>
+								<span id="weapon2-speed" class="diablo-input !bg-transparent border-0 block h-[34px]"></span></div></div>
+						<label>PROPERTIES</label>
+						<span id="weapon2-properties" class="diablo-input !bg-transparent border-0 block text-sm">This is a growing field of text that tracks and displayys all the magical properties of an item.</span></div></div></div>
+				<!-- Life & Mana -->
+                <div class="grid grid-cols-3 gap-0 text-center">
+					<div class="w-2/3 mx-auto">
+							<label for="life-current">LIFE</label>
+							<input id="life-current" name="life-current" type="number" class="diablo-input text-1xl" value="22"></div>
+					<div class="w-2/3 mx-auto">
+							<label>MAX</label>
+							<input id="life-max" type="number" class="diablo-input text-1xl" value="22"></div>
+					<div class="w-2/3 mx-auto">
+						<label>LIFE MOD</label>
+						<div class="diablo-input text-2xl flex items-center justify-center p-0 h-[42px]">
+							<div class="flex flex-col h-full">
+								<button id="life-plus-button" class="plus-minus-button h-1/2 text-xs">+</button>
+								<button id="life-minus-button" class="plus-minus-button h-1/2 text-xs">-</button></div>								
+							<input id="life-mod" type="number" class="diablo-input text-2x1" value="1"></div></div>
+				</div>
+                <div class="grid grid-cols-3 gap-0 text-center">
+					<div class="w-2/3 mx-auto">
+						<label>MANA MOD</label>
+						<div class="diablo-input text-1xl flex items-center justify-center p-0 h-[42px]">
+							<input id="mana-mod" type="number" class="diablo-input text-2xl" value="1">
+								<div class="flex flex-col h-full">
+									<button id="mana-plus-button" class="plus-minus-button h-1/2 text-xs">+</button>
+									<button id="mana-minus-button" class="plus-minus-button h-1/2 text-xs">-</button></div></div></div>
+					<div class="w-2/3 mx-auto">
+						<label>MANA</label><input id="mana-current" type="number" class="diablo-input text-1xl" value="16"></div>
+					<div class="w-2/3 mx-auto">
+						<label >MAX</label><input id="mana-max" type="number" class="diablo-input text-1xl" value="16"></div></div>
+			<!-- Orbs -->
+            <div class="md:col-span-2 flex justify-around items-center pt-4">
+				<!-- Life Orb -->
+				<div class="orb-container">
+					<div id="life-orb-fill" class="orb-fill"></div>
+					<div class="orb-text text-center">
+						<span id="life-orb-current" class="orb-text-span">0</span>LIFE<span id="life-orb-max">1</span></div></div>
+				<!-- Regen -->
+				<div class="text-center">
+					<p>Regen at Round Start</p>
+					<div class="flex items-center gap-2">
+						<input id="life-regen" type="text" class="diablo-input w-12" value=1>
+						<div class="w-20 h-1 bg-gray-600"></div>
+						<input id="mana-regen" type="text" class="diablo-input w-12" value=1></div>
+					<button id="regen-button" class="diablo-button" onclick="regen()">REGEN</button></div>
+				<!-- Mana Orb -->
+				<div>
+				<div class="orb-container">
+					<div id="mana-orb-fill" class="orb-fill"></div>
+						<div class="orb-text text-center">
+						<span id="mana-orb-current">0</span>MANA<span id="mana-orb-max">1</span></div></div></div></div></div>
+        
+        <!-- Inventory Page -->
+        <div id="inventory-page" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+				<!-- Left Side -->
+                <div class="lg:col-span-2 space-y-4">
+                    <h2 class="text-xl text-center text-[#c89b3c]">BACKPACK</h2>
+                    <div id="backpack-grid" class="inventory-grid-container mx-auto">
+                        <div id="grid-highlighter" class="hidden"></div></div>
+                    <h2 class="text-xl text-center text-[#c89b3c]">BELT</h2>
+                    <div id="belt-grid" class="inventory-grid-container mx-auto">
+                        <div id="grid-highlighter" class="hidden"></div></div>
+                    <h2 class="text-xl text-center mt-4 text-[#c89b3c]">GROUND (DISCARD)</h2>
+                    <div id="ground-container" class="ground-container mx-auto"></div>
+                </div>
+				<!-- Right Side -->
+                <div class="lg:col-span-1 space-y-2">
+                    <h2 class="text-xl text-center mb-2 text-[#c89b3c]">GOLD</h2>
+                    <div class="flex items-center justify-center gap-2 mb-6">
+                        <span id="gold-total" class="diablo-input text-2xl w-40">0</span>
+                        <input id="gold-mod-input" type="text" inputmode="numeric" pattern="[0-9]*" class="diablo-input w-24" value="100">
+                        <button id="gold-plus-button" class="plus-minus-button text-lg">+</button>
+                        <button id="gold-minus-button" class="plus-minus-button text-lg">-</button></div>
+                     <h2 class="text-xl text-center mb-2 text-[#c89b3c]">EQUIPMENT</h2>
+                     <div class="equipment-layout max-w-sm mx-auto">
+                        <!-- Left Column -->
+                        <div class="flex flex-col gap-2 justify-start items-center">
+                            <div id="equip-weapon1" data-slot-type="weapon" class="equipment-slot" style="width: 81px; height: 163px;"></div>
+                            <div id="equip-weapon3" data-slot-type="weapon" class="equipment-slot" style="width: 81px; height: 163px;"></div>
+                            <div id="equip-hands" data-slot-type="hands" class="equipment-slot" style="width: 81px; height: 81px;"></div></div>
+                        <!-- Center Column -->
+                        <div class="flex flex-col gap-2 items-center">
+                            <div id="equip-head" data-slot-type="head" class="equipment-slot" style="width: 81px; height: 81px;"></div>
+                            <div id="equip-necklace" data-slot-type="necklace" class="equipment-slot" style="width: 40px; height: 40px;"></div>
+                            <div id="equip-body" data-slot-type="body" class="equipment-slot" style="width: 81px; height: 122px;"></div>
+                            <div id="equip-belt" data-slot-type="belt" class="equipment-slot" style="width: 81px; height: 40px;"></div>
+                            <div id="equip-feet" data-slot-type="feet" class="equipment-slot" style="width: 81px; height: 81px;"></div></div>
+                        <!-- Right Column -->
+                        <div class="flex flex-col gap-2 justify-start items-center">
+                            <div id="equip-weapon2" data-slot-type="offhand" class="equipment-slot" style="width: 81px; height: 163px;"></div>
+                            <div id="equip-weapon4" data-slot-type="offhand" class="equipment-slot" style="width: 81px; height: 163px;"></div>
+                            <div id="equip-ring1" data-slot-type="ring" class="equipment-slot" style="width: 40px; height: 40px;"></div>
+							<div id="equip-ring2" data-slot-type="ring" class="equipment-slot" style="width: 40px; height: 40px;"></div></div></div></div></div></div>
+		<!-- Skills Page -->
+		<!-- Shop Page -->
+	</div>
+
+    <!-- Modals -->
+    <div id="load-modal" class="modal-overlay hidden">
+		<div class="diablo-border p-6 modal-content">
+			<div class="flex justify-between items-center mb-4">
+				<h2 class="text-2xl text-[#c89b3c]">Load Character</h2>
+				<button id="close-modal-button" class="text-2xl text-gray-500 hover:text-white">&times;</button></div>
+			<div id="character-list" class="space-y-2"></div></div></div>
+    
+	<div id="alert-modal" class="modal-overlay hidden">
+		<div class="diablo-border p-6 modal-content text-center">
+			<p id="alert-message" class="text-lg mb-4"></p>
+			<button id="alert-ok-button" class="diablo-button mx-auto">OK</button></div></div>
+    
+	<div id="item-stash-window" class="modal-draggable diablo-border hidden">
+        <div id="item-stash-header" class="modal-header flex justify-between items-center">
+            <h2 class="text-2xl text-[#c89b3c]">Item Stash</h2>
+            <button id="close-stash-button" class="text-2xl text-gray-500 hover:text-white">&times;</button></div>
+        <div class="p-4 bg-[#333]">
+            <div id="stash-category-buttons" class="flex flex-wrap justify-center gap-2 mb-4"></div>
+            <div id="item-stash-list" class="item-stash-list max-h-64 overflow-y-auto p-2 bg-black/20"></div></div></div>
+    
+	<div id="item-tooltip" class="hidden"></div>
+
+    <script src="script.js"></script>
+    <script src="data.js"></script>
+</body>
+</html>
