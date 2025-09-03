@@ -264,17 +264,18 @@ function removeItemFromGrid(itemId) {
 			
 function renderItemInBackpack(item, row, col) { 
 	const itemEl = document.createElement('div'); 
-	itemEl.id = item.id; 
-	itemEl.className = `draggable-item ${item.color}`;  
+	itemEl.id = item.id;  
 	if (item.img) {
 		const img = document.createElement('img');						
 		img.src = item.img;
 		img.alt = item.name;
 		img.style.width = '100%';
 		img.style.height = '100%';
-		img.style.objectFit = 'contain';
+		img.style.objectFit = 'contain'; 
+		itemEl.className = `draggable-item transparent`;
 		itemEl.appendChild(img);
-	} else { itemEl.textContent = item.name; }; 
+	} else { itemEl.textContent = item.name; 
+		itemEl.className = `draggable-item ${item.color}`; }; 
 	itemEl.draggable = true; 
 	itemEl.style.top = `${row * (CELL_SIZE + GAP_SIZE) + 2}px`; 
 	itemEl.style.left = `${col * (CELL_SIZE + GAP_SIZE) + 2}px`; 
@@ -287,8 +288,7 @@ function renderItemInBackpack(item, row, col) {
 function renderItemInSlot(item, slotElement) { 
 	clearAndLabelSlot(slotElement); 
 	const itemEl = document.createElement('div'); 
-	itemEl.id = item.id; 
-	itemEl.className = `draggable-item ${item.color}`;  
+	itemEl.id = item.id;   
 	if (item.img) {
 		const img = document.createElement('img');						
 		img.src = item.img;
@@ -296,8 +296,10 @@ function renderItemInSlot(item, slotElement) {
 		img.style.width = '100%';
 		img.style.height = '100%';
 		img.style.objectFit = 'contain';
+		itemEl.className = `draggable-item transparent`;
 		itemEl.appendChild(img);
-	} else { itemEl.textContent = item.name; }; 
+	} else { itemEl.textContent = item.name;
+		itemEl.className = `draggable-item ${item.color}`; }; 
 	itemEl.draggable = true; 
 	itemEl.style.width = '100%'; 
 	itemEl.style.height = '100%'; 
@@ -328,16 +330,17 @@ function populateItemStash(category = 'all') {
 		const show = category === 'all' || item.category === category; 
 		if (show) { 
 			const itemEl = document.createElement('div'); 
-			itemEl.className = `stash-item ${item.color}`; 
 			if (item.img) {
 				const img = document.createElement('img');						
 				img.src = item.img;
 				img.alt = item.name;
 				img.style.width = '100%';
 				img.style.height = '100%';
-				img.style.objectFit = 'contain';
+				img.style.objectFit = 'contain'; 
+				itemEl.className = `stash-item transparent`;
 				itemEl.appendChild(img);
-			} else { itemEl.textContent = item.name; }; 
+			} else { itemEl.textContent = item.name;
+				itemEl.className = `stash-item ${item.color}`;  }; 
 			itemEl.draggable = true; 
 			itemEl.style.width = `${item.w * CELL_SIZE}px`; 
 			itemEl.style.height = `${item.h * CELL_SIZE}px`; 
@@ -623,7 +626,7 @@ elements.classSelector.addEventListener('change', (e) => loadClassBaseStats(e.ta
 elements.loadModalButton.addEventListener('click', () => { populateLoadModal(); elements.loadModal.container.classList.remove('hidden'); });
 elements.loadModal.closeButton.addEventListener('click', () => elements.loadModal.container.classList.add('hidden'));
 elements.alertModal.okButton.addEventListener('click', () => elements.alertModal.container.classList.add('hidden'));
-<!-- Experience Buttons-->
+// Experience Buttons
 elements.experience.plusButton.addEventListener('click', () => { 
 	const cur = parseInt(elements.experience.current.value) || 0; 
 	const mod = parseInt(elements.experience.modInput.value) || 0; 
@@ -634,7 +637,7 @@ elements.experience.minusButton.addEventListener('click', () => {
 	const mod = parseInt(elements.experience.modInput.value) || 0; 
 	elements.experience.current.value = cur - mod;
 	checkLevelProgress() });
-<!-- Life Buttons -->
+// Life Buttons 
 elements.life.plusButton.addEventListener('click', () => {
 	const cur = parseInt(elements.life.current.value, 10) || 0;
 	const mod = parseInt(elements.life.mod.value, 10) || 1;
@@ -650,7 +653,7 @@ elements.life.minusButton.addEventListener('click', () => {
 	if ( newLife > 0 ) { elements.life.current.value = newLife; }	
 	else { elements.life.current.value = 0; }
 	updateOrbs() });
-<!-- Mana Buttons -->
+// Mana Buttons 
 elements.mana.plusButton.addEventListener('click', () => {
 	const cur = parseInt(elements.mana.current.value, 10) || 0;
 	const mod = parseInt(elements.mana.mod.value, 10) || 1;
