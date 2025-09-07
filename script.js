@@ -717,8 +717,8 @@ document.addEventListener('mousemove', e => {
 		elements.stashModal.window.style.left = `${e.clientX - offsetX}px`; 
 		elements.stashModal.window.style.top = `${e.clientY - offsetY}px`; } 
 	if (elements.tooltip && !elements.tooltip.classList.contains('hidden')) { 
-		elements.tooltip.style.left = `${e.pageX + 15}px`; 
-		elements.tooltip.style.top = `${e.pageY + 15}px`; } });
+		elements.tooltip.style.left = `${e.clientX + 15}px`; 
+		elements.tooltip.style.top = `${e.clientY + 15}px`; } });
 		
 document.addEventListener('mouseup', () => { isDragging = false; });
 
