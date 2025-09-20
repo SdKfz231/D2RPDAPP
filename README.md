@@ -36,4 +36,24 @@ Shop Page:
 
     // TODO: Move the current Item Stash Modal System to here, Implement the adding of Affixes and magical properties that stick with the item, from creation to destruction,  Create toggle to identify if created item is found or purchased, Implement automatic gold exchange for purchased items, ...
 
-// TODO : Item Durablity and Repair, Socketing, Timed Status effects (tracked via Regen), ...
+Data.js:
+
+    Updated Character Data to only include Base Stats and Skill Trees
+    Updated ItemDatabase with gifs (// TODO: Resize, clear background, save as png)
+
+// TODO : 
+    - Item Durablity and Repair
+    - Socketing
+    - Timed Status effects (tracked via Regen)
+    - Change Items from Modal to Sidebar
+
+Updates : 9/19/2025
+    - Simplified classData to include only necessary information [Base Stats & Skill Trees]
+    - Reconfigured characterData for holding current character instance information
+    - Added characterDataDefault for initializing base character data on New creation.
+    - Reorganized elements constant for use to renderDOM elements
+    - Changed pertinant Display elements input to div in order to prevent manipulation outside of characterState
+    - Changed Stat displays from inputs to buttons (disabled by default) to allow for upgrades on LevelUp
+    - Added New Character Modal and added Class Selector here
+    - Moved Item Button to other side to trigger future Item Sidebar
+    

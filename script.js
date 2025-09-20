@@ -1,108 +1,129 @@
 // --- STATE ---
-let backpackGridState = []; let draggedItemId = null;
+let backpackGridState = []; let draggedItemId = null; let beltGridState = []; 
+const CELL_SIZE = 40; const GAP_SIZE = 1; const PACK_COLS = 8; const PACK_ROWS = 6;
+
+let characterState = {
+	name: null, class: null, level: 0, experience: 0, statPts: 0, gold: 0, life: 0, mana: 0, 
+	stats: { strength: { base: 10, adjust: 0 }, dex: { base: 10, adjust: 0 }, con: { base: 10, adjust: 0 }, int: {base: 10, adjust: 0}, wis: { base: 10, adjust: 0}, cha: { base: 10, adjust: 0} },
+	skills: {},
+	inventory: { backpack: [], belt: [], 
+	equipment: {
+		head: null, neck: null, body: null, waist: null, hand1: null, hand2: null, offhand1: null, offhand2: null, finger1: null, finger2: null, hands: null, feet: null,
+	} },
+}
+
+const characterStateDefault = {
+	name: null, class: null, level: 0, experience: 0, statPts: 0, gold: 0, life: 0, mana: 0, 
+	stats: { strength: { base: 10, adjust: 0 }, dex: { base: 10, adjust: 0 }, con: { base: 10, adjust: 0 }, int: {base: 10, adjust: 0}, wis: { base: 10, adjust: 0}, cha: { base: 10, adjust: 0} },
+	skills: {},
+	inventory: { backpack: [], belt: {}, 
+	equipment: {
+		head: null, neck: null, body: null, waist: null, hand1: null, hand2: null, offhand1: null, offhand2: null, finger1: null, finger2: null, hands: null, feet: null,
+	} },
+}
 
 // --- DOM ELEMENTS ---
 const elements = {
 	tabs: { 
 		stats: document.getElementById('tab-stats'), 
-		inventory: document.getElementById('tab-inventory') },
+		inventory: document.getElementById('tab-inventory'), 
+		skills: document.getElementById('tab-skills') },
 	pages: { 
 		stats: document.getElementById('stats-page'), 
-		inventory: document.getElementById('inventory-page') },
-	saveButton: document.getElementById('save-button'), 
-	loadModalButton: document.getElementById('load-modal-button'), 
-	newCharButton: document.getElementById('new-char-button'), 
-	itemStashButton: document.getElementById('item-stash-button'),
+		inventory: document.getElementById('inventory-page'), 
+		skills: document.getElementById('skills-page') },
+	newCharButton: document.getElementById('new-modal-button'),
 	classSelector: document.getElementById('class-selector'), 
-	characterNameInput: document.getElementById('character-name-input'),
-	level: document.getElementById('level'),
-	experience: { 
-		current: document.getElementById('experience-current'), 
-		required: document.getElementById('experience-required'), 
-		modInput: document.getElementById('exp-mod-input'), 
-		plusButton: document.getElementById('exp-plus-button'), 
-		minusButton: document.getElementById('exp-minus-button') },
-	statPts: document.getElementById('stat-pts'),
-	ac: { 
-		display: document.getElementById('ac-display'), 
-		base: document.getElementById('ac-base') },
-	moveRate: document.getElementById('move-rate'),
-	stats: { 
-		str: document.getElementById('str'), 
-		dex: document.getElementById('dex'), 
-		con: document.getElementById('con'), 
-		int: document.getElementById('int'), 
-		wis: document.getElementById('wis'), 
-		cha: document.getElementById('cha') },
-	mods: { 
-		str: document.getElementById('str-mod'), 
-		dex: document.getElementById('dex-mod'), 
-		con: document.getElementById('con-mod'), 
-		int: document.getElementById('int-mod'), 
-		wis: document.getElementById('wis-mod'), 
-		cha: document.getElementById('cha-mod') },
-	life: { 
-		current: document.getElementById('life-current'), 
-		max: document.getElementById('life-max'),
-		mod: document.getElementById('life-mod'),
-		regen: document.getElementById('life-regen'),
-		fill: document.getElementById('life-orb-fill'),
-		plusButton: document.getElementById('life-plus-button'), 
-		minusButton: document.getElementById('life-minus-button') },
-	mana: { 
-		current: document.getElementById('mana-current'), 
-		max: document.getElementById('mana-max'),
-		mod: document.getElementById('mana-mod'),
-		regen: document.getElementById('mana-regen'),				
-		fill: document.getElementById('mana-orb-fill'),
-		plusButton: document.getElementById('mana-plus-button'), 
-		minusButton: document.getElementById('mana-minus-button') },
-	weapon1: { 
-		name: document.getElementById('weapon1-name'),
-		type: document.getElementById('weapon2-type'), 
-		damage: document.getElementById('weapon1-damage'), 
-		speed: document.getElementById('weapon1-speed'),
-		speedLbl: document.getElementById('weapon2-speed-lbl') },
-	weapon2: { 
-		name: document.getElementById('weapon2-name'),
-		type: document.getElementById('weapon2-type'),
-		damage: document.getElementById('weapon2-damage'), 
-		speed: document.getElementById('weapon2-speed'),
-		speedLbl: document.getElementById('weapon2-speed-lbl') },
-	/*
-	weapon3: { 
-		name: document.getElementById('weapon3-name'), 
-		damage: document.getElementById('weapon3-damage'), 
-		speed: document.getElementById('weapon3-speed') },
-	weapon4: { 
-		name: document.getElementById('weapon4-name'), 
-		damage: document.getElementById('weapon4-damage'), 
-		speed: document.getElementById('weapon4-speed') },*/
-	gold: { 
-		total: document.getElementById('gold-total'), 
-		modInput: document.getElementById('gold-mod-input'), 
-		plusButton: document.getElementById('gold-plus-button'), 
-		minusButton: document.getElementById('gold-minus-button') },
-	equipment: { 
-		head: document.getElementById('equip-head'), 
-		necklace: document.getElementById('equip-necklace'), 
-		body: document.getElementById('equip-body'), 
-		belt: document.getElementById('equip-belt'), 
-		ring1: document.getElementById('equip-ring1'), 
-		ring2: document.getElementById('equip-ring2'), 
-		hands: document.getElementById('equip-hands'), 
-		feet: document.getElementById('equip-feet'), 
-		weapon1: document.getElementById('equip-weapon1'), 
-		weapon2: document.getElementById('equip-weapon2'), 
-		weapon3: document.getElementById('equip-weapon3'), 
-		weapon4: document.getElementById('equip-weapon4') },
-	inventory: { 
-		backpack: document.getElementById('backpack-grid'), 
-		ground: document.getElementById('ground-container'), 
-		highlighter: document.getElementById('grid-highlighter') },
+	loadModalButton: document.getElementById('load-modal-button'), 
+	saveButton: document.getElementById('save-button'), 
+	itemsButton: document.getElementById('item-sidebar-button'),
+	character: {
+		name: document.getElementById('character-name'),
+		class: document.getElementById('character-class'),
+		level: document.getElementById('character-level'),
+		gold: { 
+			total: document.getElementById('gold-total'), 
+			input: document.getElementById('gold-input'), 
+			buttons: document.querySelectorAll('gold-button') },
+		experience: { 
+			current: document.getElementById('xp-current'), 
+			required: document.getElementById('xp-required'), 
+			input: document.getElementById('xp-input'), 
+			buttons: document.querySelectorAll('xp-button'),},
+			statPts: document.getElementById('stat-pts'),
+		stats: { 
+			strength: {
+				total: document.getElementById('strength-total'), 
+				modifier: document.getElementById('strength-mod') }, 
+			dexterity: {
+				total: document.getElementById('dexterity-total'),
+				modifier: document.getElementById('dexterity-mod') },  
+			constitution: {
+				total: document.getElementById('constitution-total'),
+				modifier: document.getElementById('constitution-mod') },  
+			intelligence: {
+				total: document.getElementById('intelligence-total'),
+				modifier: document.getElementById('intelligence-mod') },  
+			wisdom: {
+				total: document.getElementById('wisdom-total'),
+				modifier: document.getElementById('wisdom-mod') }, 
+			charisma: {
+				total: document.getElementById('charisma-total'),
+				modifier: document.getElementById('charisma-mod') } },
+		armor: document.getElementById('armor'), 
+		movement: document.getElementById('movement'),
+		life: { 
+			current: document.getElementById('life-current'), 
+			max: document.getElementById('life-max'),
+			mod: document.getElementById('life-mod'),
+			regen: document.getElementById('life-regen'),
+			fill: document.getElementById('life-orb-fill'),
+			buttons: document.querySelectorAll('life-button') },
+		mana: { 
+			current: document.getElementById('mana-current'), 
+			max: document.getElementById('mana-max'),
+			mod: document.getElementById('mana-mod'),
+			regen: document.getElementById('mana-regen'),				
+			fill: document.getElementById('mana-orb-fill'),
+			buttons: document.querySelectorAll('mana-button') },
+		primary: { 
+			name: document.getElementById('primary-name'),
+			type: document.getElementById('primary-type'), 
+			damage: document.getElementById('primary-damage'), 
+			speed: document.getElementById('primary-speed'),
+			properties: document.getElementById('primary-properties') },
+		secondary: { 
+			name: document.getElementById('secondary-name'),
+			type: document.getElementById('secondary-type'),
+			damage: document.getElementById('secondary-damage'), 
+			speed: document.getElementById('secondary-speed'),
+			properties: document.getElementById('secondary-properties') },
+		inventory: { 
+			equipment: { 
+				head: document.getElementById('equip-head'), 
+				neck: document.getElementById('equip-neck'), 
+				body: document.getElementById('equip-body'), 
+				waist: document.getElementById('equip-waist'), 
+				finger1: document.getElementById('equip-finger1'), 
+				finger2: document.getElementById('equip-finger2'), 
+				hands: document.getElementById('equip-hands'), 
+				feet: document.getElementById('equip-feet'), 
+				hand1: document.getElementById('equip-hand1'), 
+				hand2: document.getElementById('equip-hand2'), 
+				offhand1: document.getElementById('equip-offhand1'), 
+				offhand2: document.getElementById('equip-offhand2') },
+			backpack: document.querySelectorAll('backpack-grid'), 
+			belt: document.querySelectorAll('belt-grid'), 
+			highlighter: document.querySelectorAll('grid-highlighter') }
+	},
+	ground: document.getElementById('ground-container'),	
+	newModal: { 
+		container: document.getElementById('new-modal'), 
+		closeButton: document.getElementById('new-modal-close'),
+		classSelector: document.getElementById('class-selector'), },
 	loadModal: { 
 		container: document.getElementById('load-modal'), 
-		closeButton: document.getElementById('close-modal-button'), 
+		closeButton: document.getElementById('load-modal-close'), 
 		list: document.getElementById('character-list') },
 	alertModal: { 
 		container: document.getElementById('alert-modal'), 
@@ -206,17 +227,9 @@ function checkLevelProgress() {
 		updateRequiredXP();
 	}
 }
-
-function populateMoveRate() { 
-	const select = elements.moveRate; 
-	select.innerHTML = ''; 
-	for (let i = 5; i <= 60; i += 5) { 
-		const option = document.createElement('option'); 
-		option.value = i; option.textContent = `${i} FT`; 
-		select.appendChild(option); } }
 		
 function loadClassBaseStats(className) { 
-	const d = characterData[className]; 
+	const d = classData[className]; 
 	if (!d) return; for (const s in d.stats) { elements.stats[s].value = d.stats[s]; } 
 	elements.life.current.value = d.life.current; 
 	elements.life.max.value = d.life.max;  
@@ -231,16 +244,16 @@ function loadClassBaseStats(className) {
 
 // --- Inventory Functions ---
 function initializeBackpackGrid() { 
-	backpackGridState = Array(GRID_ROWS).fill(null).map(() => Array(GRID_COLS).fill(null)); 
+	backpackGridState = Array(PACK_ROWS).fill(null).map(() => Array(PACK_COLS).fill(null)); 
 	elements.inventory.backpack.querySelectorAll('.inventory-grid-cell, .draggable-item').forEach(el => el.remove()); 
-	for (let i = 0; i < GRID_ROWS * GRID_COLS; i++) { 
+	for (let i = 0; i < PACK_ROWS * PACK_COLS; i++) { 
 		const cell = document.createElement('div'); 
 		cell.className = 'inventory-grid-cell'; 
 		elements.inventory.backpack.appendChild(cell); } 
 	elements.inventory.backpack.prepend(elements.inventory.highlighter); }
 	
 function checkCollision(startRow, startCol, w, h, ignoreItemId) { 
-	if (startRow < 0 || startCol < 0 || startRow + h > GRID_ROWS || startCol + w > GRID_COLS) return true; 
+	if (startRow < 0 || startCol < 0 || startRow + h > PACK_ROWS || startCol + w > PACK_COLS) return true; 
 	for (let r = startRow; r < startRow + h; r++) { 
 		for (let c = startCol; c < startCol + w; c++) { 
 			if (backpackGridState[r][c] && backpackGridState[r][c] !== ignoreItemId) return true; } } 
@@ -252,14 +265,14 @@ function placeItemInGrid(item, startRow, startCol) {
 			backpackGridState[r][c] = item.id; } } }
 		
 function findEmptySlotInGrid(w, h) { 
-	for (let r = 0; r <= GRID_ROWS - h; r++) { 
-		for (let c = 0; c <= GRID_COLS - w; c++) { 
+	for (let r = 0; r <= PACK_ROWS - h; r++) { 
+		for (let c = 0; c <= PACK_COLS - w; c++) { 
 			if (!checkCollision(r, c, w, h)) return { r, c }; } } 
 	return null; }
 	
 function removeItemFromGrid(itemId) { 
-	for (let r = 0; r < GRID_ROWS; r++) { 
-		for (let c = 0; c < GRID_COLS; c++) { 
+	for (let r = 0; r < PACK_ROWS; r++) { 
+		for (let c = 0; c < PACK_COLS; c++) { 
 			if (backpackGridState[r][c] === itemId) backpackGridState[r][c] = null; } } }
 			
 function renderItemInBackpack(item, row, col) { 
@@ -394,20 +407,16 @@ function loadCharacter(charName) {
 	const allChars = JSON.parse(localStorage.getItem('diabloCharacters')) || {}; 
 	const d = allChars[charName]; 
 	if (!d) return; 
-	elements.characterNameInput.value = d.characterName || ''; 
-	elements.classSelector.value = d.class || 'amazon'; 
-	elements.level.value = d.level || 1; 
-	elements.experience.current.value = d.experience || 0; 
-	elements.ac.base.value = d.acBase || 0; 
-	elements.moveRate.value = d.moveRate || 20; 
-	elements.gold.total.textContent = d.gold || 0; 
-	for(const s in d.stats) { elements.stats[s].value = d.stats[s]; } 
-	elements.life.current.value = d.life.current; 
-	elements.life.max.value = d.life.max;  
-	elements.life.regen.value = d.life.regen; 
-	elements.mana.current.value = d.mana.current; 
-	elements.mana.max.value = d.mana.max;  
-	elements.mana.regen.value = d.mana.regen; 
+	characterState.name = d.characterName; 
+	characterState.class = d.class; 
+	characterState.level = d.level; 
+	characterState.experience = d.experience; 
+	characterState.gold = d.gold; 
+	for(const s in d.stats) { 
+		characterState.stats[s].base = d.stats[s].base;
+		characterState.stats[s].adjust = d.stats[s].adjust; } 
+	characterState.life = d.life; 
+	characterState.mana = d.mana;
 	initializeBackpackGrid(); 
 	clearInventoryRender(); 
 	if (d.inventory) { 
@@ -458,15 +467,8 @@ function populateLoadModal() {
 		charList.appendChild(item); }); }
 		
 function newCharacter() { 
-	document.querySelector('form')?.reset(); 
-	elements.characterNameInput.value = ''; 
-	elements.level.value = 0; 
-	elements.experience.current.value = 0; 
-	elements.classSelector.value = 'amazon'; 
-	elements.gold.total.textContent = '0'; 
-	initializeBackpackGrid(); 
-	clearInventoryRender(); 
-	loadClassBaseStats('amazon'); }
+	
+}
 	
 function updateEquipmentStats() { 
 	let gearAcBonus = 0; 
@@ -505,9 +507,15 @@ function updateEquipmentStats() {
 
 // Swap weapon Slots
 function swapWeapon() {
+	const temp1 = elements.equipment['hand1'];
+	const temp2 = elements.equipment['offhand1'];
+	elements.equipment['hand1'] = elements.equipment['hand2'];
+	elements.equipment['offhand1'] = elements.equipment['offhand2'];
+	elements.equipment['hand2'] = temp1;
+	elements.equipment['offhand2'] = temp2;
 	updateEquipmentStats();
 }
-
+/*
 // --- EVENT LISTENERS ---
 document.addEventListener('dragstart', e => { 
 	const target = e.target.closest('.draggable-item, .stash-item'); 
@@ -525,10 +533,10 @@ document.addEventListener('dragstart', e => {
 document.addEventListener('dragend', e => { 
 	const target = e.target; 
 	if (target && (target.classList.contains('draggable-item') || target.classList.contains('ground-item') || target.classList.contains('stash-item'))) { target.classList.remove('dragging'); } draggedItemId = null; 
-	elements.inventory.highlighter.classList.add('hidden'); });
+	elements.character.inventory.highlighter.classList.add('hidden'); });
 
 // Backpack Drag Events
-elements.inventory.backpack.addEventListener('dragover', e => { 
+elements.character.inventory.backpack.addEventListener('dragover', e => { 
 	e.preventDefault(); 
 	if (!draggedItemId) return; 
 	const item = itemDatabase[draggedItemId]; 
@@ -541,23 +549,23 @@ elements.inventory.backpack.addEventListener('dragover', e => {
 	const instanceId = e.dataTransfer.getData('instanceId'); 
 	const origin = e.dataTransfer.getData('origin'); 
 	const isValid = !checkCollision(row, col, item.w, item.h, origin === 'backpack' ? instanceId : null); 
-	elements.inventory.highlighter.style.top = `${row * (CELL_SIZE + GAP_SIZE) + 2}px`; 
-	elements.inventory.highlighter.style.left = `${col * (CELL_SIZE + GAP_SIZE) + 2}px`; 
-	elements.inventory.highlighter.style.width = `${item.w * CELL_SIZE + (item.w - 1) * GAP_SIZE}px`; 
-	elements.inventory.highlighter.style.height = `${item.h * CELL_SIZE + (item.h - 1) * GAP_SIZE}px`; 
-	elements.inventory.highlighter.className = isValid ? 'highlight-valid' : 'highlight-invalid'; });
+	elements.character.inventory.highlighter.style.top = `${row * (CELL_SIZE + GAP_SIZE) + 2}px`; 
+	elements.character.inventory.highlighter.style.left = `${col * (CELL_SIZE + GAP_SIZE) + 2}px`; 
+	elements.character.inventory.highlighter.style.width = `${item.w * CELL_SIZE + (item.w - 1) * GAP_SIZE}px`; 
+	elements.character.inventory.highlighter.style.height = `${item.h * CELL_SIZE + (item.h - 1) * GAP_SIZE}px`; 
+	elements.character.inventory.highlighter.className = isValid ? 'highlight-valid' : 'highlight-invalid'; });
 	
-elements.inventory.backpack.addEventListener('dragleave', e => { elements.inventory.highlighter.classList.add('hidden'); });
+elements.character.inventory.backpack.addEventListener('dragleave', e => { elements.inventory.highlighter.classList.add('hidden'); });
 
-elements.inventory.backpack.addEventListener('drop', e => { 
+elements.character.inventory.backpack.addEventListener('drop', e => { 
 	e.preventDefault(); 
-	elements.inventory.highlighter.classList.add('hidden'); 
+	elements.character.inventory.highlighter.classList.add('hidden'); 
 	const itemId = e.dataTransfer.getData('text/plain'); 
 	const instanceId = e.dataTransfer.getData('instanceId'); 
 	const origin = e.dataTransfer.getData('origin'); 
 	const item = { ...itemDatabase[itemId], id: instanceId }; 
 	if (!itemDatabase[itemId]) return; 
-	const rect = elements.inventory.backpack.getBoundingClientRect(); 
+	const rect = elements.character.inventory.backpack.getBoundingClientRect(); 
 	const x = e.clientX - rect.left; 
 	const y = e.clientY - rect.top; 
 	const col = Math.floor(x / (CELL_SIZE + GAP_SIZE)); 
@@ -570,9 +578,9 @@ elements.inventory.backpack.addEventListener('drop', e => {
 		updateEquipmentStats(); } });
 
 // Ground Drag Events
-elements.inventory.ground.addEventListener('dragover', e => e.preventDefault());
+elements.ground.addEventListener('dragover', e => e.preventDefault());
 
-elements.inventory.ground.addEventListener('drop', e => { 
+elements.ground.addEventListener('drop', e => { 
 	e.preventDefault(); 
 	const instanceId = e.dataTransfer.getData('instanceId'); 
 	const origin = e.dataTransfer.getData('origin'); 
@@ -581,13 +589,13 @@ elements.inventory.ground.addEventListener('drop', e => {
 	updateEquipmentStats(); } });
 
 // Equipment Slot Drag Events
-Object.values(elements.equipment).forEach(slot => {
+Object.values(elements.character.inventory.equipment).forEach(slot => {
 	slot.addEventListener('dragover', e => { e.preventDefault(); 
 	if (!draggedItemId) return; 
 	const item = itemDatabase[draggedItemId]; 
 	if (!item) return; 
 	const slotType = slot.dataset.slotType; 
-	if (item.type === slotType || (item.type === 'ring' && slotType === 'ring') || (item.type === 'weapon' && slotType === 'offhand')) { slot.classList.add('drag-over-valid'); } 
+	if (item.type === slotType || (item.type === 'finger' && slotType === 'finger') || (item.type === 'weapon' && slotType === 'offhand')) { slot.classList.add('drag-over-valid'); } 
 	else { slot.classList.add('drag-over-invalid'); } });
 	slot.addEventListener('dragleave', e => { slot.classList.remove('drag-over-valid', 'drag-over-invalid'); });
 	slot.addEventListener('drop', e => { 
@@ -616,10 +624,11 @@ Object.values(elements.equipment).forEach(slot => {
 		renderItemInSlot(item, slot); 
 		updateEquipmentStats(); });
 });
-
+*/
 // Other Listeners
 elements.tabs.stats.addEventListener('click', () => switchTab('stats'));
 elements.tabs.inventory.addEventListener('click', () => switchTab('inventory'));
+elements.tabs.skills.addEventListener('click', () => switchTab('skills'));
 elements.saveButton.addEventListener('click', saveCharacter);
 elements.newCharButton.addEventListener('click', newCharacter);
 elements.classSelector.addEventListener('change', (e) => loadClassBaseStats(e.target.value));
@@ -627,57 +636,23 @@ elements.loadModalButton.addEventListener('click', () => { populateLoadModal(); 
 elements.loadModal.closeButton.addEventListener('click', () => elements.loadModal.container.classList.add('hidden'));
 elements.alertModal.okButton.addEventListener('click', () => elements.alertModal.container.classList.add('hidden'));
 // Experience Buttons
-elements.experience.plusButton.addEventListener('click', () => { 
-	const cur = parseInt(elements.experience.current.value) || 0; 
-	const mod = parseInt(elements.experience.modInput.value) || 0; 
-	elements.experience.current.value = cur + mod; 
-	checkLevelProgress() });
-elements.experience.minusButton.addEventListener('click', () => { 
-	const cur = parseInt(elements.experience.current.value) || 0; 
-	const mod = parseInt(elements.experience.modInput.value) || 0; 
-	elements.experience.current.value = cur - mod;
-	checkLevelProgress() });
+elements.character.experience.buttons.forEach(button => {
+	button.addEventListener('click', () => {
+		characterState.experience = calcExperience(button.dataset.xp) }) });
 // Life Buttons 
-elements.life.plusButton.addEventListener('click', () => {
-	const cur = parseInt(elements.life.current.value, 10) || 0;
-	const mod = parseInt(elements.life.mod.value, 10) || 1;
-	const max = parseInt(elements.life.max.value, 10) || 0;
-	newCur = cur + mod;
-	if ( newCur < max ) { elements.life.current.value = newCur; }
-	else { elements.life.current.value = max; }
-	updateOrbs() });
-elements.life.minusButton.addEventListener('click', () => {
-	const cur = parseInt(elements.life.current.value, 10) || 0;
-	const mod = parseInt(elements.life.mod.value, 10) || 1;
-	newLife = cur - mod;
-	if ( newLife > 0 ) { elements.life.current.value = newLife; }	
-	else { elements.life.current.value = 0; }
-	updateOrbs() });
+elements.character.life.buttons.forEach(button => {
+	button.addEventListener('click', () => {
+		characterState.life = calcLife(button.dataset.life) }) });
 // Mana Buttons 
-elements.mana.plusButton.addEventListener('click', () => {
-	const cur = parseInt(elements.mana.current.value, 10) || 0;
-	const mod = parseInt(elements.mana.mod.value, 10) || 1;
-	const max = parseInt(elements.mana.max.value, 10) || 0;
-	newMana = cur + mod;
-	if ( newMana < max ) elements.mana.current.value = newMana;
-	else elements.mana.current.value = max;
-	updateOrbs() });
-elements.mana.minusButton.addEventListener('click', () => {
-	const cur = parseInt(elements.mana.current.value, 10) || 0;
-	const mod = parseInt(elements.mana.mod.value, 10) || 1;
-	newMana = cur - mod;
-	if ( newMana > 0 ) elements.mana.current.value = newMana;	
-	else elements.mana.current.value = 0;
-	updateOrbs() });
-elements.gold.plusButton.addEventListener('click', () => { 
-	const cur = parseInt(elements.gold.total.textContent) || 0; 
-	const mod = parseInt(elements.gold.modInput.value) || 0; 
-	elements.gold.total.textContent = cur + mod; });
-elements.gold.minusButton.addEventListener('click', () => { 
-	const cur = parseInt(elements.gold.total.textContent) || 0; 
-	const mod = parseInt(elements.gold.modInput.value) || 0; 
-	elements.gold.total.textContent = Math.max(0, cur - mod); });
-elements.itemStashButton.addEventListener('click', () => { elements.stashModal.window.classList.toggle('hidden'); });
+elements.character.mana.buttons.forEach(button => {
+	button.addEventListener('click', () => {
+		characterState.mana = calcMana(button.dataset.mana) }) });
+// Gold Buttons
+elements.character.gold.buttons.forEach(button => {
+	button.addEventListener('click', () => {
+		characterState.gold = calcGold(button.dataset.gold) }) });
+
+elements.itemsButton.addEventListener('click', () => { elements.stashModal.window.classList.toggle('hidden'); });
 elements.stashModal.closeButton.addEventListener('click', () => { elements.stashModal.window.classList.add('hidden'); });
 document.querySelectorAll('input').forEach(el => { el.addEventListener('input', updateAllDerivedStats); });
 
@@ -724,7 +699,6 @@ document.addEventListener('mouseup', () => { isDragging = false; });
 
 // --- INITIALIZATION ---
 window.addEventListener('DOMContentLoaded', () => {
-	populateMoveRate();
 	const categories = ['All', 'Helms', 'Armor', 'Shields', 'Swords', 'Axes', 'Bows', 'Claws', 'Maces/Clubs', 'Polearms', 'Staves/Wands', 'Potions', 'Gems', 'Boots', 'Gloves', 'Belts', 'Jewelry', 'Charms'];
 	categories.forEach(cat => { 
 		const btn = document.createElement('button'); 
