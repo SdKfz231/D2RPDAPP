@@ -1,42 +1,42 @@
 // --- DATA & CONSTANTS ---
 const classData = { 
-	amazon: { stats: { str: 14, dex: 14, con: 16, int: 10, wis: 14, cha: 16 }, 
+	amazon: { stats: { strength: 14, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 14, charisma: 16 }, 
 		skills: {
 			bows: {},
 			javelins: {},
 			passive: {}
 		} }, 
-	assassin: { stats: { str: 14, dex: 14, con: 16, int: 10, wis: 14, cha: 16 },
+	assassin: { stats: { strength: 14, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 14, charisma: 16 },
 		skills: {
 			martial: {},
 			shadow: {},
 			traps: {}
 		} }, 
-	barbarian: { stats: { str: 18, dex: 13, con: 17, int: 8, wis: 10, cha: 11 },
+	barbarian: { stats: { strength: 18, dexterity: 13, constitution: 17, intelligence: 8, wisdom: 10, charisma: 11 },
 		skills: {
 			warcries: {},
 			weapons: {},
 			combat: {}
 		} },  
-	druid: { stats: { str: 14, dex: 14, con: 16, int: 10, wis: 14, cha: 16 },
+	druid: { stats: { strength: 14, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 14, charisma: 16 },
 		skills: {
 			elemental: {},
 			shapeshifting: {},
 			combat: {}
 		} }, 
-	necromancer: { stats: { str: 14, dex: 14, con: 16, int: 10, wis: 14, cha: 16 }, 
+	necromancer: { stats: { strength: 14, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 14, charisma: 16 }, 
 		skills: {
 			summoning: {},
 			poison: {},
 			curses: {}
 		} },
-	paladin: { stats: { str: 14, dex: 14, con: 16, int: 10, wis: 14, cha: 16 }, 
+	paladin: { stats: { strength: 14, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 14, charisma: 16 }, 
 		skills: {
 			offensive: {},
 			defensive: {},
 			combat: {}
 		} },
-	sorceress: { stats: { str: 8, dex: 12, con: 10, int: 18, wis: 16, cha: 14 }, 
+	sorceress: { stats: { strength: 8, dexterity: 12, constitution: 10, intelligence: 18, wisdom: 16, charisma: 14 }, 
 		skills: {
 			fire: {},
 			cold: {},
@@ -395,3 +395,14 @@ const itemDatabase = {
 	'charm_large_c': { name: 'Charm', w: 1, h: 3, color: 'bg-yellow-400', type: 'charm', category: 'charms', 
 		stats: {}, img: 'assets/items/charms/largecharm03.gif' },
 }
+
+const affixes = {
+	// Prefixes
+	prefixes: {
+	},
+	// Suffixes
+	suffixes: {
+	}
+}
+
+export { classData, itemDatabase, affixes };

@@ -20,8 +20,8 @@
 				<button id="save-button" class="diablo-button">Save</button>
 			</div>
             <div class="text-center flex-grow">
-				<input id="character-name" type="text" placeholder="CHARACTER NAME" class="diablo-input bg-transparent border-0 text-center text-4xl text-[#c89b3c] p-0 w-full" disabled>
-				<div class="text-sm text-gray-400">Class</div>
+				<div id="name" type="text" class="diablo-input bg-transparent border-0 text-center text-4xl text-[#c89b3c] p-0 w-full">CHARACTER NAME</div>
+				<div id="class" class="text-sm text-gray-400">Class</div>
 			</div>
             <div>
 				<button id="item-sidebar-button" class="diablo-button">Items</button></div>
@@ -29,9 +29,9 @@
 				<label>GOLD</label>
 				<span id="gold-total" class="diablo-input text-2xl w-40">0</span>
 				<div>
-					<button id="gold-plus-button" class="plus-minus-button text-lg">+</button>
+					<button id="gold-plus-button" class="gold-button plus-minus-button text-lg" data-operation="add">+</button>
 					<input id="gold-mod-input" type="text" inputmode="numeric" pattern="[0-9]*" class="diablo-input w-20" value="100">
-					<button id="gold-minus-button" class="plus-minus-button text-lg">-</button></div></div>
+					<button id="gold-minus-button" class="gold-button plus-minus-button text-lg" data-operation="subtract">-</button></div></div>
         </div>
         
         <!-- Tabs -->
@@ -54,13 +54,13 @@
 						<div style="grid-column: span 2">
 							<label>EXPERIENCE</label>
 							<div class="diablo-input text-1xl flex items-center justify-center p-0 h-[42px]">
-								<div id="experience-current" class="bg-transparent border-0 text-right w-full focus:outline-none px-1">0</div>
+								<div id="xp-current" class="bg-transparent border-0 text-right w-full focus:outline-none px-1">0</div>
 								<span class="text-gray-500">/</span>
-								<span id="experience-required" class="text-left w-full text-gray-400 px-1">1000</span>
+								<span id="xp-required" class="text-left w-full text-gray-400 px-1">1000</span>
 								<div class="flex flex-col h-full">
-									<button id="xp-plus-button" class="xp-button plus-minus-button h-1/2 text-xs" data-xp="plus">+</button>
-									<button id="xp-minus-button" class="xp-button plus-minus-button h-1/2 text-xs" data-xp="minus">-</button></div>
-								<input id="exp-mod-input" type="text" inputmode="numeric" pattern="[0-9]*" class="diablo-input w-16 text-lg h-full" value="100"></div></div>
+									<button id="xp-plus-button" class="xp-button plus-minus-button h-1/2 text-xs" data-operation="add">+</button>
+									<button id="xp-minus-button" class="xp-button plus-minus-button h-1/2 text-xs" data-operation="subtract">-</button></div>
+								<input id="xp-adjust" type="text" inputmode="numeric" pattern="[0-9]*" class="diablo-input w-16 text-lg h-full" value="100"></div></div>
 						<div class="w-2/3 mx-auto">
 							<label>PTS</label>
 							<div id='stat-pts' class="diablo-input text-2xl flex items-center justify-center p-0 h-[42px]">0</div></div></div>
@@ -99,11 +99,12 @@
 					<!-- Resistance Group -->
 					<div>
 						<h2 class="text-center text-lg mb-2">RESISTANCES</h2>
-						<div class="grid grid-cols-4 gap-2 text-center items-center">
-							<div>🔥 <div id="fire" class="resistance diablo-input" data-resist="fire">0</div></div>
-							<div>❄️ <div id="cold" class="resistance diablo-input" data-resist="cold">0</div></div>
-							<div>⚡️ <div id="lightning" class="resistance diablo-input" data-resist="lightning">0</div></div>
-							<div>☠️ <div id="poison" class="resistance diablo-input" data-resist="poison">0</div></div></div></div>
+						<div class="grid grid-cols-5 gap-2 text-center items-center">
+							<div>🔥 <div id="res-fire" class="resistance diablo-input" data-resist="res-fire">0</div></div>
+							<div>❄️ <div id="res-cold" class="resistance diablo-input" data-resist="res-cold">0</div></div>
+							<div>⚡️ <div id="res-lightning" class="resistance diablo-input" data-resist="res-lightning">0</div></div>
+							<div>☠️ <div id="res-poison" class="resistance diablo-input" data-resist="res-poison">0</div></div>
+							<div>&#128302; <div id="res-magic" class="resistance diablo-input" data-resist="res-magic">0</div></div></div></div>
 					<!-- Conditions Group -->
 					<div><h2 class="text-center text-lg mb-2">CONDITIONS</h2>
 						<span id="conditions" class="diablo-input !bg-transparent border-0 block">More to come....</span></div></div>
@@ -160,8 +161,8 @@
 							<label>LIFE MOD</label>
 							<div class="diablo-input text-2xl flex items-center justify-center p-0 h-[42px]">
 								<div class="flex flex-col h-full">
-									<button id="life-plus-button" class="life-button plus-minus-button h-1/2 text-xs" data-life="plus">+</button>
-									<button id="life-minus-button" class="life-button plus-minus-button h-1/2 text-xs" data-life="minus">-</button></div>								
+									<button id="life-plus-button" class="life-button plus-minus-button h-1/2 text-xs" data-operation="add">+</button>
+									<button id="life-minus-button" class="life-button plus-minus-button h-1/2 text-xs" data-operation="subtract">-</button></div>								
 								<input id="life-mod" type="number" class="diablo-input text-2x1" value="5"></div></div>
 					</div>
 					<!-- Life Orb -->
@@ -186,8 +187,8 @@
 							<div class="diablo-input text-1xl flex items-center justify-center p-0 h-[42px]">
 								<input id="mana-mod" type="number" class="diablo-input text-2xl" value="5">
 									<div class="flex flex-col h-full">
-										<button id="mana-plus-button" class="mana-button plus-minus-button h-1/2 text-xs" data-mana="plus">+</button>
-										<button id="mana-minus-button" class="mana-button plus-minus-button h-1/2 text-xs" data-mana="minus">-</button></div></div></div>
+										<button id="mana-plus-button" class="mana-button plus-minus-button h-1/2 text-xs" data-operation="add">+</button>
+										<button id="mana-minus-button" class="mana-button plus-minus-button h-1/2 text-xs" data-operation="subtract">-</button></div></div></div>
 						<div class="w-2/3 mx-auto">
 							<label>MANA</label><div id="mana-current" class="diablo-input text-1xl">0</div></div>
 						<div class="w-2/3 mx-auto">
@@ -243,11 +244,14 @@
 
     <!-- Modals -->
     <div id="new-modal" class="modal-overlay hidden">
-		<div class="diablo-border p-6 modal-content">
+		<div class="diablo-border p-6 modal-content align-middle">
 			<div class="flex justify-between items-center mb-4">
 				<h2 class="text-2xl text-[#c89b3c]">New Character</h2>
 				<button id="new-modal-close" class="close-button text-2xl text-gray-500 hover:text-white">&times;</button></div>
 			<div class="text-center">
+				<label class="text-sm mb-2 block">Name</label>
+				<input id="new-character-name" type="text" class="diablo-input w-full max-w-sm mx-auto mb-4" placeholder="Enter character name">
+				<br>
 				<label class="text-sm">CLASS</label>
 				<select id="class-selector" class="diablo-button w-full !w-auto min-w-[120px] px-2">
 					<option value="amazon">Amazon</option>
@@ -258,7 +262,9 @@
 					<option value="paladin">Paladin</option>
 					<option value="sorceress">Sorceress</option>
 				</select>
-			</div></div></div>
+			</div>
+			<button id="create-character-button" class="diablo-button mt-4 w-1/2">CREATE</button>
+		</div></div>
 
     <div id="load-modal" class="modal-overlay hidden">
 		<div class="diablo-border p-6 modal-content">
@@ -282,7 +288,10 @@
     
 	<div id="item-tooltip" class="hidden"></div>
 
-    <script src="script.js"></script>
-    <script src="data.js"></script>
+    <script type="module" src="data.js"></script>
+	<script type="module" src="skills.js"></script>
+	<script type="module" src="inventory.js"></script>
+    <script type="module" src="stats.js"></script>
+	<script type="module" src="nav.js"></script>
 </body>
 </html>

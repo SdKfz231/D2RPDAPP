@@ -16,13 +16,13 @@ Stats Page:
 
     This is the main page that users will interact with the most.  It displays, tracks and updates all the characters various Stats, Levels and Experience, Damage Resistances, Status Conditions, Armor Class and Movement Rate, Readied Weapons, and Health and Mana Levels.
 
-    // TODO : Implement Belt Item Quick Use Block, Implement swapping between weapon sets, Implement Condition Toggles, Section for Skill/Spells ...
+    // TODO : Implement Belt Item Quick Use Block, Implement swapping between weapon sets, Implement Condition Toggles, Section for Skill/Spells, Timed Status effects (tracked via Regen), ...
 
 Inventory Page:
 
     Here the user user and manage their item inventory: Backpack, Belt Holder, Equipped slots, and Gold.
 
-    // TODO: Implement Item Affixs, Input out remaining Item data, Fix tooltip display when scrolling the window, ...
+    // TODO: Implement Item Affixs, Input remaining Item data, Fix tooltip display when scrolling the window, ...
 
 Skills Page: 
 
@@ -34,26 +34,44 @@ Shop Page:
 
     Here the User will be able to select and create the standard and magical items (with affixes) as needed to fill out what they find in the World.
 
-    // TODO: Move the current Item Stash Modal System to here, Implement the adding of Affixes and magical properties that stick with the item, from creation to destruction,  Create toggle to identify if created item is found or purchased, Implement automatic gold exchange for purchased items, ...
+    // TODO: 
+ - Move the current Item Stash Modal System to here, Implement the adding of Affixes and magical properties that stick with the item, from creation to destruction,  Create toggle to identify if created item is found or purchased, Implement automatic gold exchange for purchased items, Change Items from Modal to Sidebar, ...
 
 Data.js:
 
-    Updated Character Data to only include Base Stats and Skill Trees
-    Updated ItemDatabase with gifs (// TODO: Resize, clear background, save as png)
+    Stores constants for characterClass, itemDatabase, affixes 
 
-// TODO : 
-    - Item Durablity and Repair
-    - Socketing
-    - Timed Status effects (tracked via Regen)
-    - Change Items from Modal to Sidebar
+- Character Data to only include Base Stats and Skill Trees
+    //TODO: 
+ - Fill out skill trees
+- ItemDatabase (
+    // TODO: 
+ - Resize, clear background, save gifs as png) 
+ - Item Durablity and Repair
+ - Socketing
 
 Updates : 9/19/2025
-    - Simplified classData to include only necessary information [Base Stats & Skill Trees]
-    - Reconfigured characterData for holding current character instance information
-    - Added characterDataDefault for initializing base character data on New creation.
-    - Reorganized elements constant for use to renderDOM elements
-    - Changed pertinant Display elements input to div in order to prevent manipulation outside of characterState
-    - Changed Stat displays from inputs to buttons (disabled by default) to allow for upgrades on LevelUp
-    - Added New Character Modal and added Class Selector here
-    - Moved Item Button to other side to trigger future Item Sidebar
-    
+ - Simplified classData to include only necessary information [Base Stats & Skill Trees]
+ - Reconfigured characterData for holding current character instance information
+ - Added characterDataDefault for initializing base character data on New creation.
+ - Reorganized elements constant for use to renderDOM elements
+ - Changed pertinant Display elements input to div in order to prevent manipulation outside of characterState
+ - Changed Stat displays from inputs to buttons (disabled by default) to allow for upgrades on LevelUp
+ - Added New Character Modal and added Class Selector here
+ - Moved Item Button to other side to trigger future Item Sidebar
+ - Fixed image links in itemDatabase
+ - Updated Plus/Minus Button Groups and streamlined EventListeners
+Updates : 9/21/2025
+ - Updated function checkLevelProgress()
+ - Added function calcExperience()
+ - Added function renderDOM()
+ - Added function newCharacter()
+ - Added function openNewCharacterModal()
+Updates : 9/27/2025
+ - Added Character Class and relocated stats logic 
+ - Added Item Class
+ - Separated Script.js into separate files for relevant functionality { nav.js, stats.js, inventory.js, skills.js }
+ - refactored DOM elements and created specific initialization functions
+ - Updated logic for nav.js functions ( New / Load / Save )
+ - Updated logic for stats.js functions to include new Character Class
+
