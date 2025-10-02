@@ -70,9 +70,91 @@ const classData = {
 	}, 
 	assassin: { stats: { strength: 14, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 14, charisma: 16 },
 		skills: {
-			martial: {},
-			shadow: {},
-			traps: {}
+			martial: {
+				tiger_strike: { name: "TIGER STRIKE", description: "Add +2 damage and charge up to 3 strikes to deal XD4 damage.", 
+					cost: 1, parents: [], learned: false, img: 'assets/skills/assassin/tiger_strike.png' },
+				dragon_talon: { name: "DRAGON TALON", description: "Finishing Move. Deal 1D4 physical bludgeoning damage releasing charges. After each kick pass DC15 DEX check to perform another kick.", 
+					cost: 6, parents: [], learned: false, img: 'assets/skills/assassin/dragon_talon.png' },
+				dragon_claw: { name: "DRAGON CLAW", description: "(Required: Dragon Talon; Claw Weapon) Adds 1D6 damage and charge up to 3 strikes to deal XD4 damage.", 
+					cost: 6, parents: ["dragon_talon"], learned: false, img: 'assets/skills/assassin/dragon_claw.png' },
+				fists_of_fire: { name: "FISTS OF FIRE", description: "(Required: Claw Weapon) Add 1D6 fire damage and charge up to 3 strikes to deal XD4 fire damage and push target 5X ft.", 
+					cost: 2, parents: [], learned: false, img: 'assets/skills/assassin/fists_of_fire.png' },
+				cobra_strike: { name: "COBRA STRIKE", description: "(Required: Tiger Strike; Claw Weapon) Add 1D8 poison damage and charge up to 3 strikes. 1st 1D6 Lifesteal, 2nd 2D6 Life/Mana steal, 3rd 3D6 Life/Mana steal", 
+					cost: 5, parents: ["tiger_strike"], learned: false, img: 'assets/skills/assassin/cobra_strike.png' },
+				dragon_tail: { name: "DRAGON TAIL", description: "Finishing Move (Required: Dragon Claw) Deal 1D10 fire kick damage releasing charges and pushing target back 20ft.", 
+					cost: 10, parents: ["dragon_claw"], learned: false, img: 'assets/skills/assassin/dragon_tail.png' },
+				claws_of_thunder: { name: "CLAWS OF THUNDER", description: "(Required: Fists of Fire; Claw Weapon) Add 1D8 lightning damage and charge up to 3 strikes. 1st - 1D8 lightning, 2nd- DC10 Stun save, 3rd- 10ft radius", 
+					cost: 4, parents: ["fists_of_fire"], learned: false, img: 'assets/skills/assassin/claws_of_thunder.png' },
+				blades_of_ice: { name: "BLADES OF ICE", description: "(Required: Claws of Thunder; Claw Weapon) Add 1D12 cold damage and cumulative charge up to 3 strikes.  1st- 1D10 cold damage, 2nd- Slow 10ft, 3rd- DC15 Freeze.", 
+					cost: 3, parents: ["claws_of_thunder"], learned: false, img: 'assets/skills/assassin/blades_of_ice.png' },
+				dragon_flight: { name: "DRAGON FLIGHT", description: "Finishing Move (Required: Dragon Tail) Teleport up to 20ft and add 1D12 physical damage releasing all charges.", 
+					cost: 15, parents: ["dragon_tail"], learned: false, img: 'assets/skills/assassin/dragon_flight.png' },
+				phoenix_strike: { name: "PHOENIX STRIKE", description: "(Required: Cobra Strike; Blades of Ice; Claw Weapon) Add 1D20 melee damage and Charge up to 1 of 3 strike levels: 1st 1D20 fire dmg, 1D6 fire within 10ft; 2nd 1D20 lightning dmg, 1D8 lightning dmg within 10ft;  3rd 1D20 cold dmg, DC10 Freeze within 10 ft.", 
+					cost: 4, parents: ["cobra_strike", "blades_of_ice"], learned: false, img: 'assets/skills/assassin/phoenix_strike.png' }
+			},
+			shadow: {
+				claw_mastery: { name: "CLAW MASTERY", description: "Add 1D6 to all claw attacks and pass DC15 DEX check to do double damage.",
+					cost: 0, parents: [], learned: false, img: 'assets/skills/assassin/claw_mastery.png' },
+				psychic_hammer: { name: "PSYCHIC HAMMER", description: "Throw a mental hammer dealing 1D4 physical and 1D4 magical damage.", 
+					cost: 4, parents: [], learned: false, img: 'assets/skills/assassin/psychic_hammer.png' },
+				burst_of_speed: { name: "BURST OF SPEED", description: "You may perform 2 actions, move + 10 ft and avoid opportunity attacks for next 2 round.", 
+					cost: 10, parents: [], learned: false, img: 'assets/skills/assassin/burst_of_speed.png' },
+				cloak_of_shadow: { name: "CLOAK OF SHADOW", description: "(Required: Claw Mastery) AC+10 and monsters with 10 ft have AC-10 for 2 rounds.", 
+					cost: 13, parents: ["claw_mastery"], learned: false, img: 'assets/skills/assassin/cloak_of_shadow.png' },
+				
+
+WEAPON BLOCK - (Required: Dual Claws)
+Pass DC15 DEX save to block physical damage, on 5> one claw broken at random. Cost: PASSIVE
+
+FADE - (Required:)
+While active -(Level) physical damage taken, resist all +(Level) for 2 rounds . Cost: 10 Mana
+
+SHADOW WARRIOR - (Required: Lightning Bolt) Max 1 Active.
+Summon a copy of yourself HP = ½ Max. Can only use 2 skills chosen at time of cast. Cost: 30 Mana
+
+MIND BLAST - (Required: Impale)
+Hit for 1D12 psychic damage and target must pass DC10 save or be turned. Re-check at end of turn.
+Cost: 15 Mana
+
+VEMON - (Required: Charged Strike)
+Poison target for 1D12 poison damage for 1D4 rounds. Cost: 12 Mana
+
+SHADOW MASTER - (Required: Plague Javelin) Max 1 Active.
+Summon a Level 20 Master with access to all skills. HP = ½ Max. Cost: 35 Mana
+},
+			traps: {FIRE BLAST
+Throw an exploding bomb for 1D4 fire damage to targets in 10ft area. Cost: 3 Mana
+
+SHOCK WEB (Required: Fire Blast)
+Place a web in a 10ft area that deals 1D4 Lightning damage to monsters that enter it up to 4 times. Mana: 6 Mana
+
+BLADE SENTINEL
+Throw a razor device around you that does 1D6 to any monster that moves next to you for 2 rounds. 
+Cost: 7 Mana
+
+CHARGED BOLT SENTRY - (Required: Shock web)
+Lay a trap that fires 1D6 charged bolts at monsters within 15ft of it. Fires 4 times. 
+Cost: 13 Mana
+
+WAKE OF FIRE - PASSIVE (Required: Fire Blast)
+Lay a trap that emits a cone of 1D8 fire damage at monsters passing within 15ft up to 4 times. Cost: 13 Mana
+
+BLADE FURY - PASSIVE (Required: Blade Sentinel; Wake of Fire) Max 3
+Send a blade spinning around you for 3 rounds that attacks adjacent monsters for XD10 physical damage each. Cost: 9 Mana
+
+LIGHTNING SENTRY- (Required: Charged Bolt Sentry)
+Lay a trap that targets monsters moving within 20ft dealing 1D12+(Level) Lightning damage up to 4 times. 
+Cost: 20 Mana
+
+WAKE OF INFERNO - PASSIVE (Required: Wake of Fire)
+Lay a trap that emits fire in a 15ft cone dealing 1D12 fire damage up to 4 times. Cost: 20 Mana
+
+DEATH SENTRY- (Required: Lightning Sentry)
+Lay a trap that arcs on up to 4 monsters within 15ft dealing 1D20 lightning damage and causes corpse to explode 10ft dealing 1D8 fire damage. Cost: 20 Mana
+
+BLADE SHIELD- (Required: Blade Fury)
+Create a Shield of blades spinning around you for 3 rounds that give +(Level) AC and deals 1D20 physical damage when monsters attack you. Cost: 27 Mana
+}
 		} }, 
 	barbarian: { stats: { strength: 18, dexterity: 13, constitution: 17, intelligence: 8, wisdom: 10, charisma: 11 },
 		skills: {
