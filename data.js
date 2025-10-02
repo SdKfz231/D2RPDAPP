@@ -21,8 +21,7 @@ const classData = {
 			exploding_arrow: { name: "Exploding Arrow", description: "Adds 1D8 fire damage to arrow and it explodes on impact.  Target must pass DC(Level) save or be blinded. ", 
 				cost: 5, parents: ["fire_arrow"], learned: false, img: 'assets/skills/amazon/exploding_arrow.png' },
 			immolation_arrow: { name: "Immolation Arrow", description: "Enchants an arrow that adds 1D12 fire damage and explodes leaving 10ft radius burning for 1 round.  Any creature that enters takes 1D12 fire damage.", 
-				cost: 10, parents: ["exploding_arrow"], learned: false, img: 'assets/skills/amazon/immolation_arrow.png' },
-		},
+				cost: 10, parents: ["exploding_arrow"], learned: false, img: 'assets/skills/amazon/immolation_arrow.png' } },
 		javelinSkillTree: {
 			jab: { name: "Jab", description: "Perform +1D4 melee attacks on same target within the time span of a normal attack, each attack doing damage-#", 
 				cost: 2, parents: [], learned: false, img: 'assets/skills/amazon/jab.png' },
@@ -43,8 +42,7 @@ const classData = {
 			lightning_strike: { name: "Lightning Strike", description: "After dealing damage make DC15 check; on pass deal 1D20 lightning damage and check again.",
 				cost: 10, parents: ["charged_strike"], learned: false, img: 'assets/skills/amazon/lightning_strike.png' },
 			lightning_fury: { name: "Lightning Fury", description: "Strike a chain of 6 monsters within 15ft of eachother.  Target takes (1D20 -> 1D12 -> 1D10 -> 1D8 -> 1D6 -> 1D4) lightning damage.",
-				cost: 10, parents: ["plague_javelin"], learned: false, img: 'assets/skills/amazon/lightning_fury.png' }
-		},
+				cost: 10, parents: ["plague_javelin"], learned: false, img: 'assets/skills/amazon/lightning_fury.png' } },
 		passiveSkillTree: {
 			inner_sight: { name: "Inner Sight", description: "Illuminates monsters monsters in 20 ft circle, reducing their AC by (Level).",
 				cost: 5, parents: [], learned: false, img: 'assets/skills/amazon/inner_sight.png' },
@@ -65,102 +63,136 @@ const classData = {
 			valkyrie: { name: "Valkyrie", description: "Summons a powerful Valkyrie warrior to fight by your side. Mirror you Stats, Skill and Weapons. HP = ½ Max.",
 				cost: 15, parents: ["decoy", "evade"], learned: false, img: 'assets/skills/amazon/valkyrie.png' },
 			pierce: { name: "Pierce", description: "Missiles - Deal additional 1D20 physical damage and Pass DC15 STR check to repeat the attack on next target behind.",
-				cost: 0, parents: ["penetrate"], learned: false, img: 'assets/skills/amazon/pierce.png' }
-		}
-	}, 
+				cost: 0, parents: ["penetrate"], learned: false, img: 'assets/skills/amazon/pierce.png' } } }, 
 	assassin: { stats: { strength: 14, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 14, charisma: 16 },
-		skills: {
-			martial: {
-				tiger_strike: { name: "TIGER STRIKE", description: "Add +2 damage and charge up to 3 strikes to deal XD4 damage.", 
-					cost: 1, parents: [], learned: false, img: 'assets/skills/assassin/tiger_strike.png' },
-				dragon_talon: { name: "DRAGON TALON", description: "Finishing Move. Deal 1D4 physical bludgeoning damage releasing charges. After each kick pass DC15 DEX check to perform another kick.", 
-					cost: 6, parents: [], learned: false, img: 'assets/skills/assassin/dragon_talon.png' },
-				dragon_claw: { name: "DRAGON CLAW", description: "(Required: Dragon Talon; Claw Weapon) Adds 1D6 damage and charge up to 3 strikes to deal XD4 damage.", 
-					cost: 6, parents: ["dragon_talon"], learned: false, img: 'assets/skills/assassin/dragon_claw.png' },
-				fists_of_fire: { name: "FISTS OF FIRE", description: "(Required: Claw Weapon) Add 1D6 fire damage and charge up to 3 strikes to deal XD4 fire damage and push target 5X ft.", 
-					cost: 2, parents: [], learned: false, img: 'assets/skills/assassin/fists_of_fire.png' },
-				cobra_strike: { name: "COBRA STRIKE", description: "(Required: Tiger Strike; Claw Weapon) Add 1D8 poison damage and charge up to 3 strikes. 1st 1D6 Lifesteal, 2nd 2D6 Life/Mana steal, 3rd 3D6 Life/Mana steal", 
-					cost: 5, parents: ["tiger_strike"], learned: false, img: 'assets/skills/assassin/cobra_strike.png' },
-				dragon_tail: { name: "DRAGON TAIL", description: "Finishing Move (Required: Dragon Claw) Deal 1D10 fire kick damage releasing charges and pushing target back 20ft.", 
-					cost: 10, parents: ["dragon_claw"], learned: false, img: 'assets/skills/assassin/dragon_tail.png' },
-				claws_of_thunder: { name: "CLAWS OF THUNDER", description: "(Required: Fists of Fire; Claw Weapon) Add 1D8 lightning damage and charge up to 3 strikes. 1st - 1D8 lightning, 2nd- DC10 Stun save, 3rd- 10ft radius", 
-					cost: 4, parents: ["fists_of_fire"], learned: false, img: 'assets/skills/assassin/claws_of_thunder.png' },
-				blades_of_ice: { name: "BLADES OF ICE", description: "(Required: Claws of Thunder; Claw Weapon) Add 1D12 cold damage and cumulative charge up to 3 strikes.  1st- 1D10 cold damage, 2nd- Slow 10ft, 3rd- DC15 Freeze.", 
-					cost: 3, parents: ["claws_of_thunder"], learned: false, img: 'assets/skills/assassin/blades_of_ice.png' },
-				dragon_flight: { name: "DRAGON FLIGHT", description: "Finishing Move (Required: Dragon Tail) Teleport up to 20ft and add 1D12 physical damage releasing all charges.", 
-					cost: 15, parents: ["dragon_tail"], learned: false, img: 'assets/skills/assassin/dragon_flight.png' },
-				phoenix_strike: { name: "PHOENIX STRIKE", description: "(Required: Cobra Strike; Blades of Ice; Claw Weapon) Add 1D20 melee damage and Charge up to 1 of 3 strike levels: 1st 1D20 fire dmg, 1D6 fire within 10ft; 2nd 1D20 lightning dmg, 1D8 lightning dmg within 10ft;  3rd 1D20 cold dmg, DC10 Freeze within 10 ft.", 
-					cost: 4, parents: ["cobra_strike", "blades_of_ice"], learned: false, img: 'assets/skills/assassin/phoenix_strike.png' }
-			},
-			shadow: {
-				claw_mastery: { name: "CLAW MASTERY", description: "Add 1D6 to all claw attacks and pass DC15 DEX check to do double damage.",
-					cost: 0, parents: [], learned: false, img: 'assets/skills/assassin/claw_mastery.png' },
-				psychic_hammer: { name: "PSYCHIC HAMMER", description: "Throw a mental hammer dealing 1D4 physical and 1D4 magical damage.", 
-					cost: 4, parents: [], learned: false, img: 'assets/skills/assassin/psychic_hammer.png' },
-				burst_of_speed: { name: "BURST OF SPEED", description: "You may perform 2 actions, move + 10 ft and avoid opportunity attacks for next 2 round.", 
-					cost: 10, parents: [], learned: false, img: 'assets/skills/assassin/burst_of_speed.png' },
-				cloak_of_shadow: { name: "CLOAK OF SHADOW", description: "(Required: Claw Mastery) AC+10 and monsters with 10 ft have AC-10 for 2 rounds.", 
-					cost: 13, parents: ["claw_mastery"], learned: false, img: 'assets/skills/assassin/cloak_of_shadow.png' },
-				
-
-WEAPON BLOCK - (Required: Dual Claws)
-Pass DC15 DEX save to block physical damage, on 5> one claw broken at random. Cost: PASSIVE
-
-FADE - (Required:)
-While active -(Level) physical damage taken, resist all +(Level) for 2 rounds . Cost: 10 Mana
-
-SHADOW WARRIOR - (Required: Lightning Bolt) Max 1 Active.
-Summon a copy of yourself HP = ½ Max. Can only use 2 skills chosen at time of cast. Cost: 30 Mana
-
-MIND BLAST - (Required: Impale)
-Hit for 1D12 psychic damage and target must pass DC10 save or be turned. Re-check at end of turn.
-Cost: 15 Mana
-
-VEMON - (Required: Charged Strike)
-Poison target for 1D12 poison damage for 1D4 rounds. Cost: 12 Mana
-
-SHADOW MASTER - (Required: Plague Javelin) Max 1 Active.
-Summon a Level 20 Master with access to all skills. HP = ½ Max. Cost: 35 Mana
-},
-			traps: {FIRE BLAST
-Throw an exploding bomb for 1D4 fire damage to targets in 10ft area. Cost: 3 Mana
-
-SHOCK WEB (Required: Fire Blast)
-Place a web in a 10ft area that deals 1D4 Lightning damage to monsters that enter it up to 4 times. Mana: 6 Mana
-
-BLADE SENTINEL
-Throw a razor device around you that does 1D6 to any monster that moves next to you for 2 rounds. 
-Cost: 7 Mana
-
-CHARGED BOLT SENTRY - (Required: Shock web)
-Lay a trap that fires 1D6 charged bolts at monsters within 15ft of it. Fires 4 times. 
-Cost: 13 Mana
-
-WAKE OF FIRE - PASSIVE (Required: Fire Blast)
-Lay a trap that emits a cone of 1D8 fire damage at monsters passing within 15ft up to 4 times. Cost: 13 Mana
-
-BLADE FURY - PASSIVE (Required: Blade Sentinel; Wake of Fire) Max 3
-Send a blade spinning around you for 3 rounds that attacks adjacent monsters for XD10 physical damage each. Cost: 9 Mana
-
-LIGHTNING SENTRY- (Required: Charged Bolt Sentry)
-Lay a trap that targets monsters moving within 20ft dealing 1D12+(Level) Lightning damage up to 4 times. 
-Cost: 20 Mana
-
-WAKE OF INFERNO - PASSIVE (Required: Wake of Fire)
-Lay a trap that emits fire in a 15ft cone dealing 1D12 fire damage up to 4 times. Cost: 20 Mana
-
-DEATH SENTRY- (Required: Lightning Sentry)
-Lay a trap that arcs on up to 4 monsters within 15ft dealing 1D20 lightning damage and causes corpse to explode 10ft dealing 1D8 fire damage. Cost: 20 Mana
-
-BLADE SHIELD- (Required: Blade Fury)
-Create a Shield of blades spinning around you for 3 rounds that give +(Level) AC and deals 1D20 physical damage when monsters attack you. Cost: 27 Mana
-}
-		} }, 
+		martial: {
+			tiger_strike: { name: "TIGER STRIKE", description: "Add +2 damage and charge up to 3 strikes to deal XD4 damage.", 
+				cost: 1, parents: [], learned: false, img: 'assets/skills/assassin/tiger_strike.png' },
+			dragon_talon: { name: "DRAGON TALON", description: "Finishing Move. Deal 1D4 physical bludgeoning damage releasing charges. After each kick pass DC15 DEX check to perform another kick.", 
+				cost: 6, parents: [], learned: false, img: 'assets/skills/assassin/dragon_talon.png' },
+			dragon_claw: { name: "DRAGON CLAW", description: "(Required: Dragon Talon; Claw Weapon) Adds 1D6 damage and charge up to 3 strikes to deal XD4 damage.", 
+				cost: 6, parents: ["dragon_talon"], learned: false, img: 'assets/skills/assassin/dragon_claw.png' },
+			fists_of_fire: { name: "FISTS OF FIRE", description: "(Required: Claw Weapon) Add 1D6 fire damage and charge up to 3 strikes to deal XD4 fire damage and push target 5X ft.", 
+				cost: 2, parents: [], learned: false, img: 'assets/skills/assassin/fists_of_fire.png' },
+			cobra_strike: { name: "COBRA STRIKE", description: "(Required: Tiger Strike; Claw Weapon) Add 1D8 poison damage and charge up to 3 strikes. 1st 1D6 Lifesteal, 2nd 2D6 Life/Mana steal, 3rd 3D6 Life/Mana steal", 
+				cost: 5, parents: ["tiger_strike"], learned: false, img: 'assets/skills/assassin/cobra_strike.png' },
+			dragon_tail: { name: "DRAGON TAIL", description: "Finishing Move (Required: Dragon Claw) Deal 1D10 fire kick damage releasing charges and pushing target back 20ft.", 
+				cost: 10, parents: ["dragon_claw"], learned: false, img: 'assets/skills/assassin/dragon_tail.png' },
+			claws_of_thunder: { name: "CLAWS OF THUNDER", description: "(Required: Fists of Fire; Claw Weapon) Add 1D8 lightning damage and charge up to 3 strikes. 1st - 1D8 lightning, 2nd- DC10 Stun save, 3rd- 10ft radius", 
+				cost: 4, parents: ["fists_of_fire"], learned: false, img: 'assets/skills/assassin/claws_of_thunder.png' },
+			blades_of_ice: { name: "BLADES OF ICE", description: "(Required: Claws of Thunder; Claw Weapon) Add 1D12 cold damage and cumulative charge up to 3 strikes.  1st- 1D10 cold damage, 2nd- Slow 10ft, 3rd- DC15 Freeze.", 
+				cost: 3, parents: ["claws_of_thunder"], learned: false, img: 'assets/skills/assassin/blades_of_ice.png' },
+			dragon_flight: { name: "DRAGON FLIGHT", description: "Finishing Move (Required: Dragon Tail) Teleport up to 20ft and add 1D12 physical damage releasing all charges.", 
+				cost: 15, parents: ["dragon_tail"], learned: false, img: 'assets/skills/assassin/dragon_flight.png' },
+			phoenix_strike: { name: "PHOENIX STRIKE", description: "(Required: Cobra Strike; Blades of Ice; Claw Weapon) Add 1D20 melee damage and Charge up to 1 of 3 strike levels: 1st 1D20 fire dmg, 1D6 fire within 10ft; 2nd 1D20 lightning dmg, 1D8 lightning dmg within 10ft;  3rd 1D20 cold dmg, DC10 Freeze within 10 ft.", 
+				cost: 4, parents: ["cobra_strike", "blades_of_ice"], learned: false, img: 'assets/skills/assassin/phoenix_strike.png' } },
+		shadow: {
+			claw_mastery: { name: "CLAW MASTERY", description: "Add 1D6 to all claw attacks and pass DC15 DEX check to do double damage.",
+				cost: 0, parents: [], learned: false, img: 'assets/skills/assassin/claw_mastery.png' },
+			psychic_hammer: { name: "PSYCHIC HAMMER", description: "Throw a mental hammer dealing 1D4 physical and 1D4 magical damage.", 
+				cost: 4, parents: [], learned: false, img: 'assets/skills/assassin/psychic_hammer.png' },
+			burst_of_speed: { name: "BURST OF SPEED", description: "You may perform 2 actions, move + 10 ft and avoid opportunity attacks for next 2 round.", 
+				cost: 10, parents: [], learned: false, img: 'assets/skills/assassin/burst_of_speed.png' },
+			cloak_of_shadow: { name: "CLOAK OF SHADOW", description: "(Required: Claw Mastery) AC+10 and monsters with 10 ft have AC-10 for 2 rounds.", 
+				cost: 13, parents: ["claw_mastery"], learned: false, img: 'assets/skills/assassin/cloak_of_shadow.png' },
+			weapon_block: { name: "WEAPON BLOCK", description: "(Required: Claw Mastery; Dual Claws) Pass DC15 DEX save to block physical damage, on 5> one claw broken at random.", 
+				cost: 0, parents: ["claw_mastery"], learned: false, img: 'assets/skills/assassin/weapon_block.png' },
+			fade: { name: "FADE", description: "While active -(Level) physical damage taken, resist all +(Level) for 2 rounds.", 
+				cost: 10, parents: [], learned: false, img: 'assets/skills/assassin/fade.png' },
+			shadow_warrior: { name: "SHADOW WARRIOR", description: "(Required: Lightning Bolt) Max 1 Active. Summon a copy of yourself HP = ½ Max. Can only use 2 skills chosen at time of cast.", 
+				cost: 30, parents: ["psychic_hammer"], learned: false, img: 'assets/skills/assassin/shadow_warrior.png' },
+			mind_blast: { name: "MIND BLAST", description: "(Required: Impale) Hit for 1D12 psychic damage and target must pass DC10 save or be turned. Re-check at end of turn.", 
+				cost: 15, parents: ["dragon_talon"], learned: false, img: 'assets/skills/assassin/mind_blast.png' },
+			venom: { name: "VENOM", description: "(Required: Charged Strike) Poison target for 1D12 poison damage for 1D4 rounds.", 
+				cost: 12, parents: ["charged_strike"], learned: false, img: 'assets/skills/assassin/venom.png' },
+			shadow_master: { name: "SHADOW MASTER", description: "(Required: Plague Javelin) Max 1 Active. Summon a Level 20 Master with access to all skills. HP = ½ Max.", 
+				cost: 35, parents: ["shadow_warrior", "mind_blast"], learned: false, img: 'assets/skills/assassin/shadow_master.png' } },
+		traps: {
+			fire_blast: { name: "FIRE BLAST", description: "Throw an exploding bomb for 1D4 fire damage to targets in 10ft area. Cost: 3 Mana", 
+				cost: 3, parents: [], learned: false, img: 'assets/skills/assassin/fire_blast.png' },
+			shock_web: { name: "SHOCK WEB", description: "(Required: Fire Blast) Place a web in a 10ft area that deals 1D4 Lightning damage to monsters that enter it up to 4 times. Mana: 6 Mana", 
+				cost: 6, parents: ["fire_blast"], learned: false, img: 'assets/skills/assassin/shock_web.png' },
+			blade_sentinel: { name: "BLADE SENTINEL", description: "Throw a razor device around you that does 1D6 to any monster that moves next to you for 2 rounds. Cost: 7 Mana", 
+				cost: 7, parents: [], learned: false, img: 'assets/skills/assassin/blade_sentinel.png' },
+			charged_bolt_sentry: { name: "CHARGED BOLT SENTRY", description: "(Required: Shock web) Lay a trap that fires 1D6 charged bolts at monsters within 15ft of it. Fires 4 times. Cost: 13 Mana", 
+				cost: 13, parents: ["shock_web"], learned: false, img: 'assets/skills/assassin/charged_bolt_sentry.png' },
+			wake_of_fire: { name: "WAKE OF FIRE - PASSIVE", description: "(Required: Fire Blast) Lay a trap that emits a cone of 1D8 fire damage at monsters passing within 15ft up to 4 times. Cost: 13 Mana", 
+				cost: 13, parents: ["fire_blast"], learned: false, img: 'assets/skills/assassin/wake_of_fire.png' },
+			blade_fury: { name: "BLADE FURY - PASSIVE", description: "(Required: Blade Sentinel; Wake of Fire) Max 3. Send a blade spinning around you for 3 rounds that attacks adjacent monsters for XD10 physical damage each. Cost: 9 Mana", 
+				cost: 9, parents: ["blade_sentinel", "wake_of_fire"], learned: false, img: 'assets/skills/assassin/blade_fury.png' },
+			lightning_sentry: { name: "LIGHTNING SENTRY", description: "(Required: Charged Bolt Sentry) Lay a trap that targets monsters moving within 20ft dealing 1D12+(Level) Lightning damage up to 4 times. Cost: 20 Mana", 
+				cost: 20, parents: ["charged_bolt_sentry"], learned: false, img: 'assets/skills/assassin/lightning_sentry.png' },
+			wake_of_inferno: { name: "WAKE OF INFERNO - PASSIVE", description: "(Required: Wake of Fire) Lay a trap that emits fire in a 15ft cone dealing 1D12 fire damage up to 4 times. Cost: 20 Mana",
+				cost: 20, parents: ["wake_of_fire"], learned: false, img: 'assets/skills/assassin/wake_of_inferno.png' },
+			death_sentry: { name: "DEATH SENTRY", description: "(Required: Lightning Sentry) Lay a trap that arcs on up to 4 monsters within 15ft dealing 1D20 lightning damage and causes corpse to explode 10ft dealing 1D8 fire damage. Cost: 20 Mana", 
+				cost: 20, parents: ["lightning_sentry"], learned: false, img: 'assets/skills/assassin/death_sentry.png' },
+			blade_shield: { name: "BLADE SHIELD", description: "(Required: Blade Fury) Create a Shield of blades spinning around you for 3 rounds that give +(Level) AC and deals 1D20 physical damage when monsters attack you. Cost: 27 Mana", 
+				cost: 27, parents: ["blade_fury"], learned: false, img: 'assets/skills/assassin/blade_shield.png' } } }, 
 	barbarian: { stats: { strength: 18, dexterity: 13, constitution: 17, intelligence: 8, wisdom: 10, charisma: 11 },
 		skills: {
-			warcries: {},
-			weapons: {},
-			combat: {}
+			warcries: {
+				howl: { name: "HOWL", description: "Monsters must pass a DC(Level) save or become frightened for 1 round. Cost: 4 Mana",
+					cost: 4, parents: [], learned: false, img: 'assets/skills/barbarian/howl.png' },
+				find_potion: { name: "FIND POTION", description: "Make a DC20-(Level) WIS check.  On success roll on Find Potion table. Cost: 2 Mana",
+					cost: 2, parents: [], learned: false, img: 'assets/skills/barbarian/find_potion.png' },
+				shout: { name: "SHOUT", description: "(Required: Howl) Bolster your defenses, AC+(Level) for 4 rounds. Cost: 6 Mana.",
+					cost: 6, parents: ["howl"], learned: false, img: 'assets/skills/barbarian/shout.png' },
+				taunt: { name: "TAUNT", description: "(Required: Howl) Targets Damage reduced by (Level) for 4 rounds. Cost: 3 Mana",
+					cost: 3, parents: ["howl"], learned: false, img: 'assets/skills/barbarian/taunt.png' },
+				battle_cry: { name: "BATTLE CRY", description: "(Required: Shout) Targets AC and Damage reduced by (Level) for 4 rounds. Cost: 5 Mana",
+					cost: 5, parents: ["shout"], learned: false, img: 'assets/skills/barbarian/battle_cry.png' },
+				find_item: { name: "FIND ITEM", description: "(Required: Find Potion) Make a DC20-(Level) WIS check. On success roll on Random Item Table. Cost: 7 Mana",
+					cost: 7, parents: ["find_potion"], learned: false, img: 'assets/skills/barbarian/find_item.png' },
+				battle_orders: { name: "BATTLE ORDERS", description: "(Required: Taunt) HP and Mana doubled for 4 rounds. Cost: 7 Mana",
+					cost: 7, parents: ["taunt"], learned: false, img: 'assets/skills/barbarian/battle_orders.png' },
+				grim_ward: { name: "GRIM WARD", description: "(Required: Find Item) Place a ward that causes monster within 15ft to to make DC(Level) save or flee for 4 rounds. Cost: 4 Mana",
+					cost: 4, parents: ["find_item"], learned: false, img: 'assets/skills/barbarian/grim_ward.png' },
+				war_cry: { name: "WAR CRY", description: "(Required: Battle Cry; Battle Orders) Monsters within 10ft take 1D12 damage and must make a DC(Level) save or become stunned. Cost: 10 Mana",
+					cost: 10, parents: ["battle_cry", "battle_orders"], learned: false, img: 'assets/skills/barbarian/war_cry.png' },
+				battle_command: { name: "BATTLE COMMAND", description: "(Required: Battle Orders) Those within 15ft increases the duration of skills cast by 2 for 2 rounds. (cum.) Cost: 11 Mana",
+					cost: 11, parents: ["battle_orders"], learned: false, img: 'assets/skills/barbarian/battle_command.png' } },
+			weapons: {
+				sword_mastery: { name: "SWORD MASTERY", description: "Adds 1D6 damage to all sword attacks and pass DC15 STR check to do double damage.",
+					cost: 0, parents: [], learned: false, img: 'assets/skills/barbarian/sword_mastery.png' },
+				axe_mastery: { name: "AXE MASTERY", description: "Adds 1D6 damage to all axe attacks and pass DC15 STR check to do double damage.",
+					cost: 0, parents: [], learned: false, img: 'assets/skills/barbarian/axe_mastery.png' },
+				mace_mastery: { name: "MACE MASTERY", description: "Adds 1D6 damage to all mace attacks and pass DC15 STR check to do double damage.",
+					cost: 0, parents: [], learned: false, img: 'assets/skills/barbarian/mace_mastery.png' },
+				polearm_mastery: { name: "POLEARM MASTERY", description: "Adds 1D6 damage to all polearm attacks and pass DC15 STR check to do double damage.",
+					cost: 0, parents: [], learned: false, img: 'assets/skills/barbarian/polearm_mastery.png' },
+				throwing_mastery: { name: "THROWING MASTERY", description: "Adds 1D6 damage to all thrown attacks and pass DC15 STR check to do double damage.",
+					cost: 0, parents: [], learned: false, img: 'assets/skills/barbarian/throwing_mastery.png' },
+				spear_mastery: { name: "SPEAR MASTERY", description: "Adds 1D6 damage to all spear attacks and pass DC15 STR check to do double damage.",
+					cost: 0, parents: [], learned: false, img: 'assets/skills/barbarian/spear_mastery.png' },
+				increased_stamina: { name: "INCREASED STAMINA", description: "After each attack make DC10 CON Check, on success perform another attack.",
+					cost: 5, parents: [], learned: false, img: 'assets/skills/barbarian/increased_stamina.png' },
+				iron_skin: { name: "IRON SKIN", description: "When taking damage make a DC10 CON save, on success physical damage reduced by (Level), on fail by -1.",
+					cost: 5, parents: [], learned: false, img: 'assets/skills/barbarian/iron_skin.png' },
+				increased_speed: { name: "INCREASED SPEED", description: "(Required: Increased Stamina) Increase your weapon speed by 1 and movement speed increased by 10ft.",
+					cost: 10, parents: ["increased_stamina"], learned: false, img: 'assets/skills/barbarian/increased_speed.png' },
+				natural_resistance: { name: "NATURAL RESISTANCE", description: "(Required: Iron Skin) All base resistances = +(Level).",
+					cost: 10, parents: ["iron_skin"], learned: false, img: 'assets/skills/barbarian/natural_resistance.png' } },
+			combat: {
+				bash: { name: "BASH", description: "Add STR Bonus to physical damage on target. Cost: 2 Mana",
+					cost: 2, parents: [], learned: false, img: 'assets/skills/barbarian/bash.png' },
+				double_swing: { name: "DOUBLE SWING", description: "Perform double melee actions against target this round. Cost: 2 Mana",
+					cost: 2, parents: ["bash"], learned: false, img: 'assets/skills/barbarian/double_swing.png' },
+				leap: { name: "LEAP", description: "Jump 15ft moving freely past monsters and over obstacles. Cost 2 Mana",
+					cost: 2, parents: [], learned: false, img: 'assets/skills/barbarian/leap.png' },
+				double_throw: { name: "DOUBLE THROW", description: "Perform double throwing actions target this round. Cost: 4 Mana",
+					cost: 4, parents: ["double_swing"], learned: false, img: 'assets/skills/barbarian/double_throw.png' },
+				stun: { name: "STUN", description: "Add 1D6 physical damage and monster must pass a DC(Level) save or be stunned for 1D2 rounds. Cost: 2 Mana",
+					cost: 2, parents: ["bash"], learned: false, img: 'assets/skills/barbarian/stun.png' },
+				leap_attack: { name: "LEAP ATTACK", description: "Jump 15ft moving freely past monsters and over obstacles and inflicting 1D10 damage on adjacent monsters where landing. Cost: 9 Mana",
+					cost: 9, parents: ["leap"], learned: false, img: 'assets/skills/barbarian/leap_attack.png' },
+				concentrate: { name: "CONCENTRATE", description: "AC and damage +(Level) for 3 rounds. Cost: 2 Mana",
+					cost: 2, parents: ["stun"], learned: false, img: 'assets/skills/barbarian/concentrate.png' },
+				frenzy: { name: "FRENZY", description: "Perform an attack action, if monster killed perform another attack action. Cost: 3 Mana",
+					cost: 3, parents: ["double_throw"], learned: false, img: 'assets/skills/barbarian/frenzy.png' },
+				whirlwind: { name: "WHIRLWIND", description: "While moving perform attack actions on all adjacent monsters every 5ft moved. Cost: 12 Mana",
+					cost: 12, parents: ["leap_attack", "concentrate"], learned: false, img: 'assets/skills/barbarian/whirlwind.png' },
+				berserk: { name: "BERSERK", description: "Convert all physical damage to magic damage for 3 rounds, but AC = 0 and receive no defensive bonuses while active. Cost: 4 Mana",
+					cost: 4, parents: ["concentrate"], learned: false, img: 'assets/skills/barbarian/berserk.png' } },
 		} },  
 	druid: { stats: { strength: 14, dexterity: 14, constitution: 16, intelligence: 10, wisdom: 14, charisma: 16 },
 		skills: {
