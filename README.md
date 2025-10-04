@@ -22,7 +22,7 @@ Stats Page:
  - Implement Condition Toggles, 
  - Section for Skill/Spells, 
  - Timed Status effects (tracked via Regen), 
- ...
+ - ...
 
 Inventory Page:
 
@@ -60,7 +60,7 @@ Character and Item Classes contain majority of the logic in order to further sep
 
 Data.js:
 
-    Stores constants for characterClass, itemDatabase, affixes 
+    Stores constants for characterData, itemDatabase, affixes 
 
 Character Data to only include Base Stats and Skill Trees
 //TODO: 

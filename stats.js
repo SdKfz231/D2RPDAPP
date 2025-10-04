@@ -55,6 +55,7 @@ const characterDOM = {
 	mana: { current: null, max: null, mod: null, regen: null, fill: null, buttons: null },
 	primary: { name: null, type: null, damage: null, speed: null, properties: null },
 	secondary: { name: null, type: null, damage: null, speed: null, properties: null },
+	regen: null
 };
 
 // --- FUNCTIONS ---
@@ -123,6 +124,8 @@ function initializeStatsDOM() {
 	// Gold Buttons
 	characterDOM.gold.buttons.forEach(button => {
 		button.addEventListener('click', () => calcGold(button.dataset.operation) ) });
+	characterDOM.regen = document.getElementById('regen-button');
+	characterDOM.regen.addEventListener('click', () => {characterState.regenerate(); renderCharacterToDOM(); } );
 }
 
 function calcExperience ( operation ) {
@@ -163,6 +166,7 @@ function calcMana ( operation ) {
 	}
 	renderCharacterToDOM(); // Ensure UI updates
 }
+
 
 // --- Inventory Functions ---	
 function updateEquipmentStats() { 
@@ -217,7 +221,7 @@ function renderCharacterToDOM() {
 	characterDOM.level.textContent = characterState.getLevel();
 	characterDOM.gold.total.textContent = characterState.getGold();
 	characterDOM.experience.current.textContent = characterState.getExperience() || '0';
-	characterDOM.experience.required.textContent = requiredXP || '1000';
+	characterDOM.experience.required.textContent = characterState.getRequiredXP() || '1000';
 	characterDOM.statPts.textContent = characterState.getStatPts() || '0';
 	for (const stat in characterState.stats) {
 		characterDOM.stats[stat].total.textContent = characterState.getStatTotal(stat);
@@ -230,18 +234,18 @@ function renderCharacterToDOM() {
 	characterDOM.life.max.textContent = characterState.getMaxLife();
 	characterDOM.life.current.textContent = Math.min(characterState.getLife(), characterState.getMaxLife());
 	characterDOM.life.fill.style.height = `${(characterState.getLife() / characterState.getMaxLife()) * 100}%`;
+	characterDOM.life.regen.value = characterState.getLifeRegen();
 	characterDOM.mana.max.textContent = characterState.getMaxMana();
 	characterDOM.mana.current.textContent = Math.min(characterState.getMana(), characterState.getMaxMana());
 	characterDOM.mana.fill.style.height = `${(characterState.getMana() / characterState.getMaxMana()) * 100}%`;
+	characterDOM.mana.regen.value = characterState.getManaRegen();
 	//updateOrbs();
 	characterDOM.armor.textContent = characterState.getArmorClass();
 	characterDOM.movement.textContent = `${characterState.getMovementDistance()} ft.`;
 }
 
 // --- HELPER FUNCTIONS ---
-const requiredXP = ( characterState.getLevel() + 1 ) * 1000;
 
 // --- EVENT LISTENERS ---
-
 
 export { initializeStatsDOM, getCharacterState, setCharacterState  };

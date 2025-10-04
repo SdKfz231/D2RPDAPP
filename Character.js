@@ -65,6 +65,10 @@ class Character {
     return (this.level + 1) * this.getStatModifier('constitution') + 20;
   }
 
+  getLifeRegen() {
+    return 1 + this.getStatModifier('constitution');
+  }
+
   getMana() {
     return this.mana;
   }
@@ -76,6 +80,15 @@ class Character {
 
   getMaxMana() {
     return (this.level + 1) * this.getStatModifier('intelligence') + 10;
+  }
+
+  getManaRegen() {
+    return 1 + this.getStatModifier('intelligence');
+  }
+
+  regenerate() {
+    this.adjustLife(this.getLifeRegen());
+    this.adjustMana(this.getManaRegen());
   }
 
   getStatTotal(stat) {
@@ -97,6 +110,10 @@ class Character {
     return this.experience;
   }
 
+  getRequiredXP() {
+    return (this.level) * 1000;
+  }
+
   adjustExperience(amount) {
     this.experience += amount;
     console.log(this.experience);
@@ -104,20 +121,25 @@ class Character {
   }
   
   checkLevelProgress() {
-    const requiredXP = (this.level + 1) * 1000;
-    if (this.experience > requiredXP) {
-        this.experience -= requiredXP;
+    if (this.experience >= this.getRequiredXP()) {
+        this.experience -= this.getRequiredXP();
         this.level += 1;
         this.statPts += 1;
+        this.life = this.getMaxLife(); // Heal to full on level up
+        this.mana = this.getMaxMana(); // Restore mana to full on level up
+        console.log(`Leveled up to ${this.level}!`);
     }
     if (this.experience < 0) {
-        if (this.level === 0) {
+        if (this.level === 1) {
             this.experience = 0;
             return;
         } else {
             this.level -= 1;
-            this.experience += requiredXP;
+            this.experience += this.getRequiredXP();
             this.statPts -= 1;
+            if (this.life > this.getMaxLife()) this.life = this.getMaxLife();
+            if (this.mana > this.getMaxMana()) this.mana = this.getMaxMana();
+            console.log(`Leveled down to ${this.level}!`);
         }
     }
   }

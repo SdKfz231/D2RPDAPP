@@ -121,7 +121,7 @@ function saveCharacter() {
 	localStorage.setItem('diabloCharacters', JSON.stringify(allChars)); 
 	localStorage.setItem('diabloLastCharacter', charName); 
 	navigation.menu.saveButton.textContent = 'Saved!'; 
-	setTimeout(() => { navigation.saveButton.textContent = 'Save'; }, 1500); }
+	setTimeout(() => { navigation.menu.saveButton.textContent = 'Save'; }, 1500); }
 	
 function populateLoadModal() { 
 	const allChars = JSON.parse(localStorage.getItem('diabloCharacters')) || {}; 
