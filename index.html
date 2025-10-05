@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="style.css">     
 </head>
 <body class="p-4 md:p-8">
-    <div class="max-w-5xl mx-auto diablo-border p-4">
+    <div id="main" class="max-w-5xl mx-auto diablo-border p-4">
         <!-- Header -->
         <div id="Heading" class="flex justify-between items-start gap-4 mb-4">
             <div class="flex gap-2 flex-wrap">
@@ -24,7 +24,7 @@
 				<div id="class" class="text-sm text-gray-400">Class</div>
 			</div>
             <div>
-				<button id="item-sidebar-button" class="diablo-button">Items</button></div>
+				<button id="item-sidebar-open" class="diablo-button">Items</button></div>
 			<div class="flex flex-col items-center justify-center gap-0 mb-0">
 				<label>GOLD</label>
 				<span id="gold-total" class="diablo-input text-2xl w-40">0</span>
@@ -152,11 +152,9 @@
 				<div id="life" class="flex flex-col items-center">
 					<div class="flex row gap-0 text-center">
 						<div class="w-2/3 mx-auto">
-								<label for="life-current">LIFE</label>
-								<div id="life-current" name="life-current" class="diablo-input text-1xl">0</div></div>
+								<label>LIFE</label><div id="life-current" class="diablo-input text-1xl">0</div></div>
 						<div class="w-2/3 mx-auto">
-								<label>MAX</label>
-								<div id="life-max" class="diablo-input text-1xl">1</div></div>
+								<label>MAX</label><div id="life-max" class="diablo-input text-1xl">1</div></div>
 						<div class="w-2/3 mx-auto">
 							<label>LIFE MOD</label>
 							<div class="diablo-input text-2xl flex items-center justify-center p-0 h-[42px]">
@@ -203,9 +201,9 @@
         
         <!-- Inventory Page -->
         <div id="inventory-page" class="hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-2 lg:grid-cols-2 gap-6">
 				<!-- Left Side -->
-                <div class="lg:col-span-2 space-y-4">
+                <div class="lg:col-span-1 space-y-2">
                     <h2 class="text-xl text-center text-[#c89b3c]">BACKPACK</h2>
                     <div id="backpack-grid" class="inventory-grid-container mx-auto">
                         <div id="grid-highlighter" class="hidden"></div></div>
@@ -285,12 +283,22 @@
         <div class="p-4 bg-[#333]">
             <div id="stash-category-buttons" class="flex flex-wrap justify-center gap-2 mb-4"></div>
             <div id="item-stash-list" class="item-stash-list max-h-64 overflow-y-auto p-2 bg-black/20"></div></div></div>
+
+	<div id="item-sidebar" class="sidebar diablo-border">
+		<div class="sidebar-header flex justify-between items-center p-2 bg-[#333]">
+			<h2 class="text-xl text-[#c89b3c]">Items</h2>
+			<button id="item-sidebar-close" class="text-2xl text-gray-500 hover:text-white">&times;</button></div>
+		<div class="p-4 bg-[#333]">
+			<div id="sidebar-category-buttons" class="flex flex-wrap"></div>
+			<div id="item-list" class="item-list overflow-y-auto p-2 bg-black/20"></div></div></div>
     
 	<div id="item-tooltip" class="hidden"></div>
 
     <script type="module" src="data.js"></script>
-	<script type="module" src="skills.js"></script>
+	<script type="module" src="Item.js"></script>
 	<script type="module" src="inventory.js"></script>
+	<script type="module" src="Character.js"></script>
+	<script type="module" src="skills.js"></script>
     <script type="module" src="stats.js"></script>
 	<script type="module" src="nav.js"></script>
 </body>

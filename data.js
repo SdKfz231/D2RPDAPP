@@ -481,7 +481,6 @@ const itemDatabase = {
 		stats: { ac: 9, weight: 'Heavy' }, img: 'assets/armor/fullplate.gif'  },
 	'ancient_armor': { name: 'Ancient Armor', w: 2, h: 3, color: 'bg-yellow-200', type: 'armor', equip: 'body', category: 'armor',
 		stats: { ac: 10, weight: 'Medium' }, img: 'assets/armor/ancientarmor.gif'  },
-
 	// Helms
 	'cap': { name: 'Cap', w: 2, h: 2, color: 'bg-yellow-800', type: 'helm', equip: 'head', category: 'headgear', 
 		stats: { ac: 1 }, img: 'assets/armor/helms/cap.gif'  },
@@ -521,7 +520,41 @@ const itemDatabase = {
 	'gothic_shield': { name: 'Gothic Shield', w: 2, h: 3, color: 'bg-red-800', type: 'shield', equip: 'offhand', category: 'offhand', 
 		stats: { ac: 6, weight: 'Medium' }, img: 'assets/armor/shields/gothicshield.gif'  },
 		//TODO: add unique shields
-
+	// Accoutrements
+	// Boots
+	'leather_boots': { name: 'Boots', w: 2, h: 2, color: 'bg-yellow-900', type: 'boots', equip: 'feet', category: 'accoutrements', 
+		stats: { ac: 1, weight: 'Light' }, img: 'assets/armor/boots/leatherboots.gif' },
+	'heavy_boots': { name: 'Heavy Boots', w: 2, h: 2, color: 'bg-yellow-800', type: 'boots', equip: 'feet', category: 'accoutrements', 
+		stats: { ac: 1, weight: 'Medium' }, img: 'assets/armor/boots/heavyboots.gif' },
+	'chain_boots': { name: 'Chain Boots', w: 2, h: 2, color: 'bg-gray-500', type: 'boots', equip: 'feet', category: 'accoutrements', 
+		stats: { ac: 2, weight: 'Medium' }, img: 'assets/armor/boots/chainboots.gif' },
+	'light_plate_boots': { name: 'Light Plate Boots', w: 2, h: 2, color: 'bg-gray-400', type: 'boots', equip: 'feet', category: 'accoutrements', 
+		stats: { ac: 2, weight: 'Heavy' }, img: 'assets/armor/boots/lightplateboots.gif' },
+	'plate_boots': { name: 'Plate Boots', w: 2, h: 2, color: 'bg-gray-300', type: 'boots', equip: 'feet', category: 'accoutrements', 
+		stats: { ac: 3, weight: 'Heavy' }, img: 'assets/armor/boots/plateboots.gif' },	
+	// Gloves
+	'leather_gloves': { name: 'Leather Gloves', w: 2, h: 2, color: 'bg-yellow-800', type: 'gloves', equip: 'hands', category: 'accoutrements', 
+		stats: { ac: 1, weight: 'Light' }, img: 'assets/armor/gloves/leathergloves.gif' },
+	'chain_gloves': { name: 'Chain Gloves', w: 2, h: 2, color: 'bg-gray-500', type: 'gloves', equip: 'hands', category: 'accoutrements', 
+		stats: { ac: 2, weight: 'Light' }, img: 'assets/armor/gloves/chaingloves.gif' },
+	'heavy_gloves': { name: 'Heavy Gloves', w: 2, h: 2, color: 'bg-yellow-900', type: 'gloves', equip: 'hands', category: 'accoutrements', 
+		stats: { ac: 2, weight: 'Medium' }, img: 'assets/armor/gloves/heavygloves.gif' },
+	'light_gauntlets': { name: 'Light Gauntlets', w: 2, h: 2, color: 'bg-gray-400', type: 'gloves', equip: 'hands', category: 'accoutrements', 
+		stats: { ac: 3, weight: 'Medium' }, img: 'assets/armor/gloves/lightgauntlets.gif' },
+	'gauntlets': { name: 'Gauntlets', w: 2, h: 2, color: 'bg-gray-600', type: 'gloves', equip: 'hands', category: 'accoutrements', 
+		stats: { ac: 4, weight: 'Heavy' }, img: 'assets/armor/gloves/gauntlets.gif' },	
+	// Belts
+	'sash': { name: 'Sash', w: 2, h: 1, color: 'bg-amber-200', type: 'belt', equip: 'waist', category: 'accoutrements', 
+		stats: { ac: 1, cap: 4 }, img: 'assets/armor/belts/sash.gif' },
+	'light_belt': { name: 'Light Belt', w: 2, h: 1, color: 'bg-slate-300', type: 'belt', equip: 'waist', category: 'accoutrements', 
+		stats: { ac: 1, cap: 8 }, img: 'assets/armor/belts/lightbelt.gif' },
+	'belt': { name: 'Belt', w: 2, h: 1, color: 'bg-amber-600', type: 'belt', equip: 'waist', category: 'accoutrements', 
+		stats: { ac: 2, cap: 8 }, img: 'assets/armor/belts/belt.gif' },
+	'heavy_belt': { name: 'Heavy Belt', w: 2, h: 1, color: 'bg-amber-800', type: 'belt', equip: 'waist', category: 'accoutrements', 
+		stats: { ac: 2, cap: 12 }, img: 'assets/armor/belts/heavybelt.gif' },
+	'plate_belt': { name: 'Plate Belt', w: 2, h: 1, color: 'bg-slate-500', type: 'belt', equip: 'waist', category: 'accoutrements', 
+		stats: { ac: 3, cap: 16 }, img: 'assets/armor/belts/platebelt.gif' },
+	// Weapons
 	// Swords
 	'shortsword': { name: 'Shortsword', w: 1, h: 3, color: 'bg-blue-200', type: 'sword', equip: 'hand', category: '1 handed', 
 		stats: { dmg: 'D4', speed: 'Fast' }, img: 'assets/weapons/swords/shortsword.gif' },
@@ -551,7 +584,6 @@ const itemDatabase = {
 		stats: { dmg: 'D10/D12', speed: 'Fast' }, img: 'assets/weapons/swords/warsword.gif' },
 	'great_sword': { name: 'Great Sword', w: 2, h: 4, color: 'bg-blue-400', type: 'sword', equip: 'hand', category: '2 handed', 
 		stats: { dmg: 'D10/D20', speed: 'Normal' }, img: 'assets/weapons/swords/greatsword.gif' },
-
 	// Axes
 	'hand_axe': { name: 'Hand Axe', w: 2, h: 3, color: 'bg-gray-400', type: 'axe', equip: 'hand', category: '1 handed', 
 		stats: { dmg: 'D4', speed: 'Fast' }, img: 'assets/weapons/axes/handaxe.gif' },
@@ -571,7 +603,6 @@ const itemDatabase = {
 		stats: { dmg: 'D12', speed: 'Fast' }, img: 'assets/weapons/axes/waraxe.gif' },
 	'giant_axe': { name: 'Giant Axe', w: 2, h: 3, color: 'bg-gray-400', type: 'axe', equip: 'hand', category: '2 handed', 
 		stats: { dmg: 'D20', speed: 'Slow' }, img: 'assets/weapons/axes/giantaxe.gif' },
-
 	// Maces & Clubs
 	'club': { name: 'Club', w: 2, h: 3, color: 'bg-yellow-900', type: 'mace', equip: 'hand', category: '1 handed', 
 		stats: { dmg: 'D4', speed: 'Fast' }, img: 'assets/weapons/maces/club.gif' },
@@ -595,7 +626,6 @@ const itemDatabase = {
 		stats: { dmg: 'D8', speed: 'Normal' }, img: 'assets/weapons/scepters/warscepter.gif' },
 	'grand_scepter': { name: 'Battle Scepter', w: 1, h: 3, color: 'bg-yellow-600', type: 'mace', equip: 'hand', category: '1 handed', 
 		stats: { dmg: 'D10', speed: 'Fast' }, img: 'assets/weapons/scepters/grandscepter.gif' },
-
 	// Polearms
 	'scythe': { name: 'Scythe', w: 2, h: 4, color: 'bg-gray-500', type: 'polearm', equip: 'hand', category: '2 handed', 
 		stats: { dmg: 'D10', speed: 'Slow' }, img: 'assets/weapons/polearms/scythe.gif' },
@@ -615,27 +645,29 @@ const itemDatabase = {
 		stats: { dmg: 'D12', speed: 'Slow' }, img: 'assets/weapons/spears/septum.gif' },
 	'pike': { name: 'Pike', w: 2, h: 4, color: 'bg-blue-900', type: 'polearm', equip: 'hand', category: '2 handed', 
 		stats: { dmg: 'D12', speed: 'Normal' }, img: 'assets/weapons/spears/pike.gif' },
-
 	// Staves & Wands
-	'short_staff': { name: 'Short Staff', w: 1, h: 3, color: 'bg-yellow-700', type: 'stave', equip: 'hand', category: '2 handed', 
+	'short_staff': { name: 'Short Staff', w: 1, h: 3, color: 'bg-yellow-700', type: 'stave', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D6', speed: 'Fast' }, img: 'assets/weapons/staves/shortstaff.gif' },
-	'long_staff': { name: 'Long Staff', w: 1, h: 4, color: 'bg-yellow-800', type: 'stave', equip: 'hand', category: '2 handed', 
+	'long_staff': { name: 'Long Staff', w: 1, h: 4, color: 'bg-yellow-800', type: 'stave', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D8', speed: 'Fast' }, img: 'assets/weapons/staves/longstaff.gif' },
-	'gnarled_staff': { name: 'Gnarled Staff', w: 1, h: 4, color: 'bg-yellow-900', type: 'stave', equip: 'hand', category: '2 handed', 
+	'gnarled_staff': { name: 'Gnarled Staff', w: 1, h: 4, color: 'bg-yellow-900', type: 'stave', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D10', speed: 'Normal' }, img: 'assets/weapons/staves/gnarledstaff.gif' },
-	'battle_staff': { name: 'Battle Staff', w: 1, h: 4, color: 'bg-red-800', type: 'stave', equip: 'hand', category: '2 handed', 
+	'battle_staff': { name: 'Battle Staff', w: 1, h: 4, color: 'bg-red-800', type: 'stave', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D10', speed: 'Fast' }, img: 'assets/weapons/staves/battlestaff.gif' },
-	'war_staff': { name: 'War Staff', w: 1, h: 4, color: 'bg-red-900', type: 'stave', equip: 'hand', category: '2 handed', 
+	'war_staff': { name: 'War Staff', w: 1, h: 4, color: 'bg-red-900', type: 'stave', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D12', speed: 'Normal' }, img: 'assets/weapons/staves/warstaff.gif' },
-	'wand': { name: 'Wand', w: 1, h: 2, color: 'bg-gray-300', type: 'wand', equip: 'hand', category: '1 handed', 
+	'wand': { name: 'Wand', w: 1, h: 2, color: 'bg-gray-300', type: 'wand', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D4', speed: 'Normal' }, img: 'assets/weapons/wands/wand.gif' },
-	'yew_wand': { name: 'Yew Wand', w: 1, h: 2, color: 'bg-green-300', type: 'wand', equip: 'hand', category: '1 handed', 
+	'yew_wand': { name: 'Yew Wand', w: 1, h: 2, color: 'bg-green-300', type: 'wand', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D4', speed: 'Fast' }, img: 'assets/weapons/wands/yewwand.gif' },
-	'bone_wand': { name: 'Bone Wand', w: 1, h: 2, color: 'bg-gray-200', type: 'wand', equip: 'hand', category: '1 handed', 
+	'bone_wand': { name: 'Bone Wand', w: 1, h: 2, color: 'bg-gray-200', type: 'wand', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D6', speed: 'Normal' }, img: 'assets/weapons/wands/bonewand.gif' },
-	'grim_wand': { name: 'Grim Wand', w: 1, h: 2, color: 'bg-gray-400', type: 'wand', equip: 'hand', category: '1 handed', 
+	'grim_wand': { name: 'Grim Wand', w: 1, h: 2, color: 'bg-gray-400', type: 'wand', equip: 'hand', category: 'staves', 
 		stats: { dmg: 'D6', speed: 'Fast' }, img: 'assets/weapons/wands/grimwand.gif' },
 	//TODO: Orbs
+	// TODO: Bows, Crossbows, Javelins, Throwing Axes
+	'short_bow': { name: 'Short Bow', w: 2, h: 3, color: 'bg-gray-400', type: 'bow', equip: '2 hand', category: 'bows', 
+		stats: { dmg: 'D4', speed: 'Normal' }, img: 'assets/weapons/Bows/shortbow.gif' },
 
 	// Potions
 	'minor_healing': { name: 'Minor Health Potion', w: 1, h: 1, color: 'bg-red-100', type: 'potion', equip: 'belt', category: 'magical', 
@@ -737,42 +769,6 @@ const itemDatabase = {
 		stats: { weapon: '+4 Lightning DMG', shield: '+4 Lightning Resist', armor: '+4 Magic Find' }, img: 'assets/items/gems/flawlesstopaz.gif' },
 	'perfect_topaz': { name: 'Perfect Topaz', w: 1, h: 1, color: 'bg-yellow-800', type: 'gem', equip: 'socket', category: 'jewelry', 
 		stats: { weapon: '+5 Lightning DMG', shield: '+5 Lightning Resist', armor: '+5 Magic Find' }, img: 'assets/items/gems/perfecttopaz.gif' },
-	
-	//Boots
-	'leather_boots': { name: 'Boots', w: 2, h: 2, color: 'bg-yellow-900', type: 'boots', equip: 'feet', category: 'accoutrements', 
-		stats: { ac: 1, weight: 'Light' }, img: 'assets/armor/boots/leatherboots.gif' },
-	'heavy_boots': { name: 'Heavy Boots', w: 2, h: 2, color: 'bg-yellow-800', type: 'boots', equip: 'feet', category: 'accoutrements', 
-		stats: { ac: 1, weight: 'Medium' }, img: 'assets/armor/boots/heavyboots.gif' },
-	'chain_boots': { name: 'Chain Boots', w: 2, h: 2, color: 'bg-gray-500', type: 'boots', equip: 'feet', category: 'accoutrements', 
-		stats: { ac: 2, weight: 'Medium' }, img: 'assets/armor/boots/chainboots.gif' },
-	'light_plate_boots': { name: 'Light Plate Boots', w: 2, h: 2, color: 'bg-gray-400', type: 'boots', equip: 'feet', category: 'accoutrements', 
-		stats: { ac: 2, weight: 'Heavy' }, img: 'assets/armor/boots/lightplateboots.gif' },
-	'plate_boots': { name: 'Plate Boots', w: 2, h: 2, color: 'bg-gray-300', type: 'boots', equip: 'feet', category: 'accoutrements', 
-		stats: { ac: 3, weight: 'Heavy' }, img: 'assets/armor/boots/plateboots.gif' },
-	
-	//Gloves
-	'leather_gloves': { name: 'Leather Gloves', w: 2, h: 2, color: 'bg-yellow-800', type: 'gloves', equip: 'hands', category: 'accoutrements', 
-		stats: { ac: 1, weight: 'Light' }, img: 'assets/armor/gloves/leathergloves.gif' },
-	'chain_gloves': { name: 'Chain Gloves', w: 2, h: 2, color: 'bg-gray-500', type: 'gloves', equip: 'hands', category: 'accoutrements', 
-		stats: { ac: 2, weight: 'Light' }, img: 'assets/armor/gloves/chaingloves.gif' },
-	'heavy_gloves': { name: 'Heavy Gloves', w: 2, h: 2, color: 'bg-yellow-900', type: 'gloves', equip: 'hands', category: 'accoutrements', 
-		stats: { ac: 2, weight: 'Medium' }, img: 'assets/armor/gloves/heavygloves.gif' },
-	'light_gauntlets': { name: 'Light Gauntlets', w: 2, h: 2, color: 'bg-gray-400', type: 'gloves', equip: 'hands', category: 'accoutrements', 
-		stats: { ac: 3, weight: 'Medium' }, img: 'assets/armor/gloves/lightgauntlets.gif' },
-	'gauntlets': { name: 'Gauntlets', w: 2, h: 2, color: 'bg-gray-600', type: 'gloves', equip: 'hands', category: 'accoutrements', 
-		stats: { ac: 4, weight: 'Heavy' }, img: 'assets/armor/gloves/gauntlets.gif' },
-	
-	//Belts
-	'sash': { name: 'Sash', w: 2, h: 1, color: 'bg-amber-200', type: 'belt', equip: 'waist', category: 'accoutrements', 
-		stats: { ac: 1, cap: 4 }, img: 'assets/armor/belts/sash.gif' },
-	'light_belt': { name: 'Light Belt', w: 2, h: 1, color: 'bg-slate-300', type: 'belt', equip: 'waist', category: 'accoutrements', 
-		stats: { ac: 1, cap: 8 }, img: 'assets/armor/belts/lightbelt.gif' },
-	'belt': { name: 'Belt', w: 2, h: 1, color: 'bg-amber-600', type: 'belt', equip: 'waist', category: 'accoutrements', 
-		stats: { ac: 2, cap: 8 }, img: 'assets/armor/belts/belt.gif' },
-	'heavy_belt': { name: 'Heavy Belt', w: 2, h: 1, color: 'bg-amber-800', type: 'belt', equip: 'waist', category: 'accoutrements', 
-		stats: { ac: 2, cap: 12 }, img: 'assets/armor/belts/heavybelt.gif' },
-	'plate_belt': { name: 'Plate Belt', w: 2, h: 1, color: 'bg-slate-500', type: 'belt', equip: 'waist', category: 'accoutrements', 
-		stats: { ac: 3, cap: 16 }, img: 'assets/armor/belts/platebelt.gif' },
 	
 	// Jewelry
 	'ring1': { name: 'Gold Ring', w: 1, h: 1, color: 'bg-amber-400', type: 'ring', equip: 'finger', category: 'jewelry', 

@@ -115,6 +115,10 @@ function initializeStatsDOM() {
 	// Experience Buttons
 	characterDOM.experience.buttons.forEach(button => {
 		button.addEventListener('click', () => { console.log("Adjusting XP"); calcExperience(button.dataset.operation) }) });
+	// Stat Buttons
+	for (const stat in characterDOM.stats) {
+		characterDOM.stats[stat].total.addEventListener('click', () => { characterState.adjustStat(stat); renderCharacterToDOM(); } );
+	}
 	// Life Buttons 
 	characterDOM.life.buttons.forEach(button => {
 		button.addEventListener('click', () => calcLife(button.dataset.operation) ) });
@@ -227,6 +231,11 @@ function renderCharacterToDOM() {
 		characterDOM.stats[stat].total.textContent = characterState.getStatTotal(stat);
 		characterDOM.stats[stat].modifier.textContent = 
 			characterState.getStatModifier(stat) >= 0 ? `+${characterState.getStatModifier(stat)}` : characterState.getStatModifier(stat);
+		if (characterState.getStatPts() != 0) {
+			characterDOM.stats[stat].total.disabled = false;
+		} else {
+			characterDOM.stats[stat].total.disabled = true;
+		}
 	}
 	for (const resist in characterDOM.resistances) {
 		characterDOM.resistances[resist].textContent = characterState.getResistance(resist) || '0';

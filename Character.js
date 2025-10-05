@@ -98,6 +98,21 @@ class Character {
     return 0;
   }
 
+  adjustStat(stat) {
+    if (this.statPts > 0 && this.stats[stat]) {
+        this.stats[stat].adjust += 1;
+        this.statPts -= 1;
+        console.log(`Increased ${stat} to ${this.getStatTotal(stat)}. Remaining stat points: ${this.statPts}`);
+        return true;
+    }
+    if (this.statPts < 0 && this.stats[stat]) {
+        this.stats[stat].adjust -= 1;
+        this.statPts += 1;
+        console.log(`Decreased ${stat} to ${this.getStatTotal(stat)}. Remaining stat points: ${this.statPts}`);
+        return true;
+    }
+  }
+      
   getStatModifier(stat) {
     return Math.floor((this.getStatTotal(stat) - 10) / 2);
   }

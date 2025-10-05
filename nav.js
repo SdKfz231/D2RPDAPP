@@ -4,12 +4,18 @@ import { initializeSkillsDOM } from "./skills.js";
 import Character from "./Character.js";
 import { classData, itemDatabase } from "./data.js";
 
+const CELL_SIZE = 40;  
+
 const navigation = {
     menu: {
         newCharButton: null, loadModalButton: null, saveButton: null },
 	tabs: { stats: null, inventory: null, skills: null },
 	pages: { stats: null, inventory: null, skills: null },
-	itemsButton: null,	
+    sidebar: {
+	itemOpenSidebar: null,
+    itemSidebar: null,
+    itemCloseSidebar: null
+	},
 	newModal: { container: null, closeButton: null, newNameInput: null, classSelector: null, create: null },
 	loadModal: { container: null, closeButton: null, list: null },
 	alertModal: { container: null, message: null, okButton: null },
@@ -27,7 +33,11 @@ function initializeNavDOM() {
     navigation.pages.stats= document.getElementById('stats-page'); 
     navigation.pages.inventory= document.getElementById('inventory-page'); 
     navigation.pages.skills= document.getElementById('skills-page') ;
-    navigation.itemsButton= document.getElementById('item-sidebar-button');	
+    navigation.sidebar.itemOpenSidebar= document.getElementById('item-sidebar-open');
+    navigation.sidebar.itemSidebar= document.getElementById('item-sidebar');
+    navigation.sidebar.itemCloseSidebar= document.getElementById('item-sidebar-close');
+    navigation.sidebar.list= document.getElementById('item-list'); 
+    navigation.sidebar.categoryButtons= document.getElementById('sidebar-category-buttons');
     navigation.newModal.container= document.getElementById('new-modal'); 
     navigation.newModal.closeButton= document.getElementById('new-modal-close');
     navigation.newModal.newNameInput= document.getElementById('new-character-name');
@@ -42,8 +52,6 @@ function initializeNavDOM() {
     navigation.stashModal.window= document.getElementById('item-stash-window'); 
     navigation.stashModal.header= document.getElementById('item-stash-header'); 
     navigation.stashModal.closeButton= document.getElementById('close-stash-button'); 
-    navigation.stashModal.list= document.getElementById('item-stash-list'); 
-    navigation.stashModal.categoryButtons= document.getElementById('stash-category-buttons');
     navigation.tooltip= document.getElementById('item-tooltip');
     // Event Listeners
     navigation.tabs.stats.addEventListener('click', () => switchTab('stats'));
@@ -60,14 +68,15 @@ function initializeNavDOM() {
     navigation.menu.loadModalButton.addEventListener('click', () => { populateLoadModal(); navigation.loadModal.container.classList.remove('hidden'); });
     navigation.loadModal.closeButton.addEventListener('click', () => navigation.loadModal.container.classList.add('hidden'));
     navigation.alertModal.okButton.addEventListener('click', () => navigation.alertModal.container.classList.add('hidden'));
-    navigation.itemsButton.addEventListener('click', () => { characterDOM.stashModal.window.classList.toggle('hidden'); });
-    navigation.stashModal.closeButton.addEventListener('click', () => { characterDOM.stashModal.window.classList.add('hidden'); });
-    navigation.stashModal.header.addEventListener('mousedown', e => { 
+    navigation.sidebar.itemOpenSidebar.addEventListener('click', () => openItemSidebar() );
+    navigation.sidebar.itemCloseSidebar.addEventListener('click', () => closeItemSidebar() );
+    //navigation.stashModal.closeButton.addEventListener('click', () => { characterDOM.stashModal.window.classList.add('hidden'); });
+    /*navigation.stashModal.header.addEventListener('mousedown', e => { 
         isDragging = true; 
         const rect = navigation.stashModal.window.getBoundingClientRect(); 
         offsetX = e.clientX - rect.left; 
         offsetY = e.clientY - rect.top; 
-        navigation.stashModal.window.style.transform = 'none'; });
+        navigation.stashModal.window.style.transform = 'none'; });*/
 }
 
 // Navigation and Startup Functions
@@ -76,7 +85,16 @@ function switchTab(tabName) {
 	Object.keys(navigation.tabs).forEach(t => navigation.tabs[t].classList.remove('active')); 
 	navigation.pages[tabName].classList.remove('hidden'); 
 	navigation.tabs[tabName].classList.add('active'); }
-	
+
+function openItemSidebar() {
+  document.getElementById("item-sidebar").style.width = "31%";
+  //document.getElementById("main").style.marginRight = "300px"; 
+}
+
+function closeItemSidebar() {
+  document.getElementById("item-sidebar").style.width = "0";
+  //document.getElementById("main").style.marginRight= "0";
+}	
 		
 function openNewCharacterModal() { 
 	navigation.newModal.container.classList.remove('hidden'); 
@@ -162,10 +180,20 @@ function deleteCharacter(charName) {
     }
 	localStorage.setItem('diabloCharacters', JSON.stringify(allChars)); 
 	populateLoadModal(); }
-    
-/*
-function populateItemStash(category = 'all') { 
-	const list = elements.stashModal.list; 
+
+function setupSidebar() {
+	const itemCategories = ['All', 'Armor', 'Headgear', 'Accoutrements', '1 Handed', '2 Handed', 'Bows', 'Staves', 'Magical', 'Jewelry'];
+	itemCategories.forEach(cat => { 
+		const btn = document.createElement('button'); 
+		btn.className = 'diablo-button !w-auto px-2 text-xs'; 
+		btn.textContent = cat; 
+		btn.onclick = () => populateItemSidebar(cat.toLowerCase().replace('/','_')); 
+		navigation.sidebar.categoryButtons.appendChild(btn); });
+    populateItemSidebar('all');
+}
+
+function populateItemSidebar(category = 'all') { 
+	const list = navigation.sidebar.list; 
 	list.innerHTML = ''; 
 	Object.keys(itemDatabase).forEach(key => { 
 		const item = itemDatabase[key]; 
@@ -179,17 +207,17 @@ function populateItemStash(category = 'all') {
 				img.style.width = '100%';
 				img.style.height = '100%';
 				img.style.objectFit = 'contain'; 
-				itemEl.className = `stash-item transparent`;
+				itemEl.className = `sidebar-item transparent`;
 				itemEl.appendChild(img);
 			} else { itemEl.textContent = item.name;
-				itemEl.className = `stash-item ${item.color}`;  }; 
+				itemEl.className = `sidebar-item ${item.color}`;  }; 
 			itemEl.draggable = true; 
 			itemEl.style.width = `${item.w * CELL_SIZE}px`; 
 			itemEl.style.height = `${item.h * CELL_SIZE}px`; 
 			itemEl.dataset.itemId = key; 
-			itemEl.dataset.origin = 'stash'; 
+			itemEl.dataset.origin = 'sidebar'; 
 			list.appendChild(itemEl); } }); }
-			*/
+			
 // --- EVENT LISTENERS ---
 // Movable Stash & Tooltip Positioner
 let isDragging = false, offsetX, offsetY;
@@ -228,17 +256,11 @@ document.addEventListener('mouseup', () => { isDragging = false; });
 // --- INITIALIZATION ---
 window.addEventListener('DOMContentLoaded', () => {
     initializeNavDOM();
+    setupSidebar();
     initializeStatsDOM();
     initializeInventoryDOM();
     initializeSkillsDOM();
     setCharacterState(new Character());
-	const itemCategories = ['All', 'Helms', 'Armor', 'Shields', 'Swords', 'Axes', 'Bows', 'Claws', 'Maces/Clubs', 'Polearms', 'Staves/Wands', 'Potions', 'Gems', 'Boots', 'Gloves', 'Belts', 'Jewelry', 'Charms'];
-	itemCategories.forEach(cat => { 
-		const btn = document.createElement('button'); 
-		btn.className = 'diablo-button !w-auto px-2 text-xs'; 
-		btn.textContent = cat; 
-		btn.onclick = () => populateItemStash(cat.toLowerCase().replace('/','_')); 
-		navigation.stashModal.categoryButtons.appendChild(btn); });
 	const lastChar = localStorage.getItem('diabloLastCharacter');
 	if (lastChar) { loadCharacter(lastChar); }
 	switchTab('stats');
