@@ -60,7 +60,7 @@ const itemDatabase = {
 	'full_helm': { name: 'Full Helm', w: 2, h: 2, color: 'bg-gray-600', type: 'head', category: 'helms', 
 		stats: { ac: 4 }, img: 'assets/armor/helms/fullhelm.gif'  },
 	'bone_helm': { name: 'Bone Helm', w: 2, h: 2, color: 'bg-gray-200', type: 'head', category: 'helms', 
-		stats: { ac: 5 }, img: 'assets/armor/helms/bonehelm.gif'  },
+		stats: { ac: 5 }, img: 'assets/armor/helms/bonehelm.png'  },
 	'great_helm': { name: 'Great Helm', w: 2, h: 2, color: 'bg-gray-500', type: 'head', category: 'helms', 
 		stats: { ac: 5 }, img: 'assets/armor/helms/greathelm.gif'  },
 	'crown': { name: 'Crown', w: 2, h: 2, color: 'bg-yellow-500', type: 'head', category: 'helms', 
